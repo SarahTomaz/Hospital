@@ -1,4 +1,4 @@
-//package funcionarios;
+package funcionarios;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -121,9 +121,13 @@ public class Gerente
 	
 	public void setDatadeN(String nasc)
 	{
-		if (nasc.charAt(3) == '.' || nasc.charAt(3) == '/' || nasc.charAt(3)== '-' || nasc.charAt(2) == '.' || nasc.charAt(2) == '/' || nasc.charAt(2)== '-')
-		{
-			if ( nasc.charAt(2) == '.' || nasc.charAt(2) == '/' || nasc.charAt(2)== '-' )
+		if (nasc.charAt(2) == '.' || nasc.charAt(2) == '/' || nasc.charAt(2)== '-' || nasc.charAt(1) == '.' || nasc.charAt(1) == '/' || nasc.charAt(1)== '-')
+		{ 
+		//Checa se tem um separador aceito pelo LocalDate na segunda ou terceira posição da String
+		//Exemplo: 10/08/2023 ou 1/08/2023; assim ele aceita embos os valores e presume que
+		//você vai continuar a coloca-los para separar o mês e o ano.
+			
+			if ( nasc.charAt(1) == '.' || nasc.charAt(1) == '/' || nasc.charAt(1)== '-' )
 			{
 				nasc.replace('.', '/');
 				nasc.replace('-', '/');

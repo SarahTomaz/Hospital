@@ -1,4 +1,4 @@
-package DAO;
+package br.edu.ufersa.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class BaseDaoImpl<E> implements BaseDao<E>
 {
-        final static String URL = "jdbc:mysql://localhost/Artur";
+        final static String URL = "jdbc:postgresql://localhost/Hospital";
         final static String USER = "Luis";
         final static String PASS = "medicina";
         static Connection con = null;

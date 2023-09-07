@@ -1,4 +1,4 @@
-package Model.Entity;
+package br.edu.ufersa.model.entity;
 
 public class Prontuario
 {

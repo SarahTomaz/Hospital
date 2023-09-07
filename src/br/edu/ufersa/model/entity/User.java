@@ -1,6 +1,4 @@
-package Model.Entity;
-
-import java.time.LocalDate;
+package br.edu.ufersa.model.entity;
 
 public abstract class User
 {

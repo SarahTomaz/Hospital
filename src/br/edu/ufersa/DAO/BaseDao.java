@@ -1,4 +1,4 @@
-package DAO;
+package br.edu.ufersa.DAO;
 
 import java.util.List;
 

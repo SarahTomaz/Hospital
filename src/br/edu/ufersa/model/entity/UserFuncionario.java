@@ -1,4 +1,4 @@
-package Model.Entity;
+package br.edu.ufersa.model.entity;
 
 public class UserFuncionario extends User
 {
@@ -30,6 +30,7 @@ public class UserFuncionario extends User
             this.salario = salario;
         //TODO else
     }
-
+    public double getSalario()
+    {return this.salario;}
 
 }

@@ -1,45 +1,51 @@
 package br.edu.ufersa.model.entity;
 
+import br.edu.ufersa.exception.CampoVazioException;
+
+import java.sql.Date;
+
 public class Prontuario
 {
-    private String tipoABO;
-    private String alergias;
-    private String medicacao;
-    private String sinaisvitais;
+    private Long id;
+    private Date data;
+    private String Observacoes;
 
-    public void setTipoABO(String tipoABO)
+    public void setId(Long id)
     {
-        if (tipoABO != null && tipoABO.isEmpty())
-            this.tipoABO = tipoABO;
-        //TODO else
+        if (id >= 0)
+        {
+            this.id = id;
+        }
+        else
+            throw new CampoVazioException("Campo 'Id' não pode ser negativo");
     }
-    public String getTipoABO()
-    {return this.tipoABO;}
+    public Long getId()
+    {return this.id;}
 
-    public void setAlergias(String alergias)
+    public void setData(Date data)
     {
-        if (alergias != null && alergias.isEmpty())
-            this.alergias = alergias;
-        //TODO else
+        if (data != null)
+        {
+            this.data = data;
+        }
+        else {
+            throw new CampoVazioException("Campo 'Data' não pode ser vazio");
+        }
     }
-    public String getAlergias()
-    {return this.alergias;}
+    public Date getData()
+    {return this.data;}
 
-    public void setMedicacao(String medicacao)
+    public void setObservacoes(String observacoes)
     {
-        if (medicacao != null && medicacao.isEmpty())
-            this.medicacao = medicacao;
-        //TODO else
+        if (observacoes != null && !observacoes.isEmpty())
+        {
+            this.Observacoes = observacoes;
+        }
+        else
+        {
+            throw new CampoVazioException("Campo 'observações' mão pode ser vazio");
+        }
     }
-    public String getMedicacao()
-    {return this.medicacao;}
-
-    public void setSinaisVitais(String sinaisvitais)
-    {
-        if (sinaisvitais != null && sinaisvitais.isEmpty())
-            this.sinaisvitais = sinaisvitais;
-        //TODO else
-    }
-    public String getSinaisVitais()
-    {return this.sinaisvitais;}
+    public String getObservacoes()
+    {return this.Observacoes;}
 }

@@ -1,5 +1,7 @@
 package br.edu.ufersa.model.entity;
 
+import br.edu.ufersa.exception.CampoVazioException;
+
 public class UserFuncionario extends User
 {
     private String senha;
@@ -8,18 +10,24 @@ public class UserFuncionario extends User
 
     public void setSenha(String senha)
     {
-        if (senha != null && senha.isEmpty())
+        if (senha != null && !senha.isEmpty())
             this.senha = senha;
-        //TODO else
+        else
+        {
+            throw new CampoVazioException("Senha não pode ser vazia");
+        }
     }
     public String getSenha()
     {return this.senha;}
 
     public void setCrm(String crm)
     {
-        if (crm != null && crm.isEmpty())
+        if (crm != null && !crm.isEmpty())
             this.crm = crm;
-        //TODO else
+        else
+        {
+            throw new CampoVazioException("Crm não pode ser vazia");
+        }
     }
     public String getCrm()
     {return this.crm;}
@@ -28,7 +36,10 @@ public class UserFuncionario extends User
     {
         if (salario > 0.0)
             this.salario = salario;
-        //TODO else
+        else
+        {
+            throw new CampoVazioException("Salário deve ser positivo");
+        }
     }
     public double getSalario()
     {return this.salario;}

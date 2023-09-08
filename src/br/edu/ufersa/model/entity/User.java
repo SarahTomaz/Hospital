@@ -1,6 +1,8 @@
 package br.edu.ufersa.model.entity;
 
-public abstract class User
+import br.edu.ufersa.exception.CampoVazioException;
+
+public class User
 {
     private String nome;
     private String cpf;
@@ -9,29 +11,40 @@ public abstract class User
 
     public void setNome(String nome)
     {
-        if (nome != null && nome.isEmpty())
+        if (nome != null && !nome.isEmpty())
             this.nome = nome;
-        //TODO else
+        else
+        {
+            throw new CampoVazioException("Nome não pode ser vazio");
+        }
     }
     public String getNome()
     {return this.nome;}
 
     public void setCpf(String cpf)
     {
-        if (cpf != null && cpf.isEmpty())
-            this.cpf = cpf;}
-        //TODO else
+        if (cpf != null && !cpf.isEmpty())
+            this.cpf = cpf;
+        else
+        {
+            throw new CampoVazioException("Cpf não pode ser vazio");
+        }
+
+    }
+
     public String getCpf()
     {return this.cpf;}
 
     public void setEndereco(String endereco)
     {
-        if (endereco != null && endereco.isEmpty())
+        if (endereco != null && !endereco.isEmpty())
             this.endereco = endereco;
-        //TODO else
+        else
+        {
+            throw new CampoVazioException("Endereço não pode ser vazio");
+        }
     }
     public String getEndereco()
     {return this.endereco;}
-
 }
 

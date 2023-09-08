@@ -7,9 +7,9 @@ import java.util.List;
 
 public abstract class BaseDaoImpl<E> implements BaseDao<E>
 {
-        final static String URL = "jdbc:postgresql://localhost/Hospital";
-        final static String USER = "Luis";
-        final static String PASS = "medicina";
+        final static String URL = "jdbc:postgresql://localhost/postgres";
+        final static String USER = "postgres";
+        final static String PASS = "2635";
         static Connection con = null;
 
         public static Connection getConnection() {
@@ -46,6 +46,5 @@ public abstract class BaseDaoImpl<E> implements BaseDao<E>
     public abstract Long inserir(E entity);
     public abstract void deletar(E entity);
     public abstract void alterar(E entity);
-    public abstract E buscar(E entity);
     public abstract List<E> listar();
 }

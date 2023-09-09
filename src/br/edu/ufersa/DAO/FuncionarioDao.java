@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ufersa.model.entity.UserFuncionario;
+import br.edu.ufersa.model.entity.Funcionario;
 
-public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
+public class FuncionarioDao extends BaseDaoImpl<Funcionario>
 {
 
     @Override
-    public Long inserir(UserFuncionario entity)
+    public Long inserir(Funcionario entity)
     {
         Connection con = getConnection();
-        String sql = "INSERT INTO userfuncionario VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -40,10 +40,10 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
     }
 
     @Override
-    public void deletar(UserFuncionario entity)
+    public void deletar(Funcionario entity)
     {
         Connection con = getConnection();
-        String sql = "DELETE FROM userfuncionario WHERE crm = ?";
+        String sql = "DELETE FROM funcionario WHERE crm = ?";
 
         try
         {
@@ -61,10 +61,10 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
     }
 
     @Override
-    public void alterar(UserFuncionario entity)
+    public void alterar(Funcionario entity)
     {
         Connection con = getConnection();
-        String sql = "UPDATE userfuncionario SET nome = ? WHERE crm = ?";
+        String sql = "UPDATE funcionario SET nome_m = ? WHERE crm = ?";
 
         try
         {
@@ -81,11 +81,11 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
         finally {closeConnection();}
     }
 
-    public UserFuncionario buscarPorCrm(UserFuncionario entity)
+    public Funcionario buscarPorCrm(Funcionario entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM userfuncionario WHERE crm = ?";
-        UserFuncionario uf = new UserFuncionario();
+        String sql = "SELECT * FROM funcionario WHERE crm = ?";
+        Funcionario uf = new Funcionario();
         ResultSet rs = null;
 
         try
@@ -96,7 +96,7 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
 
             rs.next();
             uf.setCrm(rs.getString("crm"));
-            uf.setNome(rs.getString("nome"));
+            uf.setNome(rs.getString("nome_m"));
             uf.setCpf(rs.getString("cpf"));
             uf.setEndereco(rs.getString("endereco"));
             uf.setSenha(rs.getString("senha"));
@@ -112,11 +112,11 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
         return uf;
     }
 
-    public UserFuncionario buscarPorNome(UserFuncionario entity)
+    public Funcionario buscarPorNome(Funcionario entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM userfuncionario WHERE Nome = ?";
-        UserFuncionario uf = new UserFuncionario();
+        String sql = "SELECT * FROM funcionario WHERE nome_m = ?";
+        Funcionario uf = new Funcionario();
         ResultSet rs = null;
 
         try
@@ -127,39 +127,40 @@ public class FuncionarioDao extends BaseDaoImpl<UserFuncionario>
 
             rs.next();
             uf.setCrm(rs.getString("crm"));
-            uf.setNome(rs.getString("nome"));
+            uf.setNome(rs.getString("nome_m"));
             uf.setCpf(rs.getString("cpf"));
             uf.setEndereco(rs.getString("endereco"));
             uf.setSenha(rs.getString("senha"));
             uf.setSalario(rs.getLong("salario"));
 
             ps.close();
+            return uf;
         }
         catch(SQLException e)
         {
             e.printStackTrace();
+            return null;
         }
         finally {closeConnection();}
-        return uf;
     }
 
     @Override
-    public List<UserFuncionario> listar()
+    public List<Funcionario> listar()
     {
         Connection con = getConnection();
-        String patric = "SELECT * FROM userfuncionario";
-        List<UserFuncionario> func = new ArrayList<UserFuncionario>();
+        String patric = "SELECT * FROM funcionario";
+        List<Funcionario> func = new ArrayList<Funcionario>();
 
         try {
             PreparedStatement ps = con.prepareStatement(patric);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                UserFuncionario usu = new UserFuncionario();
+                Funcionario usu = new Funcionario();
 
                 try {
                     usu.setCrm(rs.getString("crm"));
-                    usu.setNome(rs.getString("nome"));
+                    usu.setNome(rs.getString("nome_m"));
                     usu.setCpf(rs.getString("cpf"));
                     usu.setEndereco(rs.getString("endereco"));
                     usu.setSenha(rs.getString("senha"));

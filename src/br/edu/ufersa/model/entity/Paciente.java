@@ -1,7 +1,5 @@
 package br.edu.ufersa.model.entity;
 
-import br.edu.ufersa.exception.CampoVazioException;
-
 public class Paciente extends User
 {
     private Prontuario prontuario;
@@ -9,6 +7,6 @@ public class Paciente extends User
     {
         this.prontuario = prontuario;
     }
-    public Prontuario getPronturaio()
+    public Prontuario getProntuario()
     {return this.prontuario;}
 }

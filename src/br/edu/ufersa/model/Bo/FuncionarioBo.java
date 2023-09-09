@@ -2,37 +2,36 @@ package br.edu.ufersa.model.Bo;
 
 import br.edu.ufersa.DAO.BaseDao;
 import br.edu.ufersa.DAO.FuncionarioDao;
-import br.edu.ufersa.model.entity.UserFuncionario;
+import br.edu.ufersa.model.entity.Funcionario;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioBo
 {
-    UserFuncionario uf = null;
-    public void criar(UserFuncionario func)
+    Funcionario uf = null;
+    public void criar(Funcionario func)
     {
-        BaseDao<UserFuncionario> funcDao = new FuncionarioDao();
+        BaseDao<Funcionario> funcDao = new FuncionarioDao();
 
         funcDao.inserir(func);
     }
 
-    public void deletar(UserFuncionario func)
+    public void deletar(Funcionario func)
     {
-        BaseDao<UserFuncionario> funcDao = new FuncionarioDao();
+        BaseDao<Funcionario> funcDao = new FuncionarioDao();
 
         funcDao.deletar(func);
     }
 
-    public void alterar(UserFuncionario func)
+    public void alterar(Funcionario func)
     {
-        BaseDao<UserFuncionario> funcDao = new FuncionarioDao();
+        BaseDao<Funcionario> funcDao = new FuncionarioDao();
 
         funcDao.alterar(func);
     }
 
-    public UserFuncionario buscarPorCrm(UserFuncionario func)
+    public Funcionario buscarPorCrm(Funcionario func)
     {
         FuncionarioDao funcDao = new FuncionarioDao();
 
@@ -40,7 +39,7 @@ public class FuncionarioBo
         return uf;
     }
 
-    public UserFuncionario buscarPorNome(UserFuncionario func)
+    public Funcionario buscarPorNome(Funcionario func)
     {
         FuncionarioDao funcDao = new FuncionarioDao();
 
@@ -48,10 +47,10 @@ public class FuncionarioBo
         return uf;
     }
 
-    public List<UserFuncionario> listar()
+    public List<Funcionario> listar()
     {
-        List<UserFuncionario> func = new ArrayList<UserFuncionario>();
-        BaseDao<UserFuncionario> funcDao = new FuncionarioDao();
+        List<Funcionario> func = new ArrayList<Funcionario>();
+        BaseDao<Funcionario> funcDao = new FuncionarioDao();
 
         func = funcDao.listar();
         return func;

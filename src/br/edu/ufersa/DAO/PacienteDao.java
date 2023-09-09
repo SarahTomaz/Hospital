@@ -2,6 +2,7 @@ package br.edu.ufersa.DAO;
 
 
 import br.edu.ufersa.model.entity.Paciente;
+import br.edu.ufersa.model.entity.Prontuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
             ps.setString(1, entity.getCpf());
             ps.setString(2, entity.getNome());
             ps.setString(3, entity.getEndereco());
-            ps.setLong(4, entity.getPronturaio().getId());
+            ps.setLong(4, entity.getProntuario().getId());
             ps.execute();
             ps.close();
         }
@@ -41,7 +42,7 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
     public void deletar(Paciente entity)
     {
         Connection con = getConnection();
-        String sql = "DELETE FROM pacientes WHERE cpf = ?";
+        String sql = "DELETE FROM paciente WHERE cpf = ?";
 
         try
         {
@@ -62,7 +63,7 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
     public void alterar(Paciente entity)
     {
         Connection con = getConnection();
-        String sql = "UPDATE paciente SET nome = ? WHERE cpf = ?";
+        String sql = "UPDATE paciente SET nome_p = ? WHERE cpf = ?";
 
         try
         {
@@ -84,6 +85,8 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
         Connection con = getConnection();
         String sql = "SELECT * FROM paciente WHERE cpf = ?";
         Paciente pc = new Paciente();
+        Prontuario p = new Prontuario();
+        pc.setProntuario(p);
         ResultSet rs = null;
 
         try
@@ -95,9 +98,9 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
 
             rs.next();
             pc.setCpf(rs.getString("cpf"));
-            pc.setNome(rs.getString("nome"));
+            pc.setNome(rs.getString("nome_p"));
             pc.setEndereco(rs.getString("endereco"));
-            pc.getPronturaio().setId(rs.getLong("p_id"));
+            pc.getProntuario().setId(rs.getLong("p_id"));
             ps.close();
         }
         catch(SQLException e)
@@ -111,8 +114,10 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
     public Paciente buscarPorNome(Paciente entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM paciente WHERE nome = ?";
+        String sql = "SELECT * FROM paciente WHERE nome_p = ?";
         Paciente pc = new Paciente();
+        Prontuario p = new Prontuario();
+        pc.setProntuario(p);
         ResultSet rs = null;
 
         try
@@ -124,17 +129,19 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
 
             rs.next();
             pc.setCpf(rs.getString("cpf"));
-            pc.setNome(rs.getString("nome"));
+            pc.setNome(rs.getString("nome_p"));
             pc.setEndereco(rs.getString("endereco"));
-            pc.getPronturaio().setId(rs.getLong("p_id"));
+            pc.getProntuario().setId(rs.getLong("p_id"));
             ps.close();
+
+            return pc;
         }
         catch(SQLException e)
         {
             e.printStackTrace();
+            return null;
         }
         finally {closeConnection();}
-        return pc;
     }
 
     @Override
@@ -150,12 +157,14 @@ public class PacienteDao extends BaseDaoImpl<Paciente>
 
             while(rs.next()) {
                 Paciente usu = new Paciente();
+                Prontuario p = new Prontuario();
+                usu.setProntuario(p);
 
                 try {
                     usu.setCpf(rs.getString("cpf"));
-                    usu.setNome(rs.getString("nome"));
+                    usu.setNome(rs.getString("nome_p"));
                     usu.setEndereco(rs.getString("endereco"));
-                    usu.getPronturaio().setId(rs.getLong("p_id"));
+                    usu.getProntuario().setId(rs.getLong("p_id"));
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

@@ -16,25 +16,17 @@ public class ProntuarioDao extends BaseDaoImpl<Prontuario>
     public Long inserir(Prontuario entity)
     {
         Connection con = getConnection();
-        String sql = "INSERT INTO prontuario (datadeatemdimento, observacoes) (VALUES (?, ?)";
+        String sql = "INSERT INTO prontuario (horario, observacoes) VALUES (?, ?)";
 
         try
         {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(2, entity.getData());
-            ps.setString(3, entity.getObservacoes());
+            ps.setDate(1, entity.getData());
+            ps.setString(2, entity.getObservacoes());
             ps.execute();
             ps.close();
 
-            sql = "SELECT * FROM prontuario WHERE datadeatendimento = ?";
-            ps = con.prepareStatement(sql);
-            ps.setDate(1, entity.getData());
-
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-                return rs.getLong("p_id");
-            else
-                return null;
+            return ProntuarioDao.buscarId(entity);
         }
         catch (SQLException e)
         {
@@ -42,6 +34,31 @@ public class ProntuarioDao extends BaseDaoImpl<Prontuario>
             return null;
         }
         finally {closeConnection();}
+    }
+
+    public static Long buscarId(Prontuario entity)
+    {
+        Connection con = getConnection();
+
+        try {
+            String sql = "SELECT * FROM prontuario WHERE horario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
+
+            ps.setDate(1, entity.getData());
+            ps.setString(2, entity.getObservacoes());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next())
+                return rs.getLong("p_id");
+            else
+                return null;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -104,7 +121,7 @@ public class ProntuarioDao extends BaseDaoImpl<Prontuario>
                 try
                 {
                     usu.setId(rs.getLong("p_id"));
-                    usu.setData(rs.getDate("datadeatendimento"));
+                    usu.setData(rs.getDate("horario"));
                     usu.setObservacoes(rs.getString("endereco"));
 
                 }

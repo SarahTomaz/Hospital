@@ -1,5 +1,6 @@
 package br.edu.ufersa.DAO;
 
+import br.edu.ufersa.model.entity.Funcionario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,20 +9,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ufersa.model.entity.Funcionario;
+public class FuncionarioDao extends BaseDaoImpl<Funcionario> {
 
-public class FuncionarioDao extends BaseDaoImpl<Funcionario>
-{
+    private static final String INSERT_SQL = "INSERT INTO funcionario VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String DELETE_SQL = "DELETE FROM funcionario WHERE crm = ?";
+    private static final String UPDATE_SQL = "UPDATE funcionario SET nome_m = ? WHERE crm = ?";
+    private static final String SELECT_BY_ID_SQL = "SELECT * FROM funcionario WHERE crm = ?";
+    private static final String SELECT_BY_FIELD_SQL = "SELECT * FROM funcionario WHERE ";
 
     @Override
-    public Long inserir(Funcionario entity)
-    {
-        Connection con = getConnection();
-        String sql = "INSERT INTO funcionario VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-
+    public Long inserir(Funcionario entity) {
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(INSERT_SQL)) {
             ps.setString(1, entity.getCrm());
             ps.setString(2, entity.getNome());
             ps.setString(3, entity.getCpf());
@@ -29,153 +28,84 @@ public class FuncionarioDao extends BaseDaoImpl<Funcionario>
             ps.setString(5, entity.getSenha());
             ps.setDouble(6, entity.getSalario());
             ps.execute();
-            ps.close();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        finally {closeConnection();}
         return null;
     }
 
     @Override
-    public void deletar(Funcionario entity)
-    {
-        Connection con = getConnection();
-        String sql = "DELETE FROM funcionario WHERE crm = ?";
-
-        try
-        {
-            PreparedStatement ps = con.prepareStatement(sql);
-
+    public void deletar(Funcionario entity) {
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(DELETE_SQL)) {
             ps.setString(1, entity.getCrm());
             ps.execute();
-            ps.close();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        finally {closeConnection();}
     }
 
     @Override
-    public void alterar(Funcionario entity)
-    {
-        Connection con = getConnection();
-        String sql = "UPDATE funcionario SET nome_m = ? WHERE crm = ?";
-
-        try
-        {
-            PreparedStatement ps = con.prepareStatement(sql);
+    public void alterar(Funcionario entity) {
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(UPDATE_SQL)) {
             ps.setString(1, entity.getNome());
             ps.setString(2, entity.getCrm());
             ps.execute();
-            ps.close();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        finally {closeConnection();}
     }
 
-    public Funcionario buscarPorCrm(Funcionario entity)
-    {
-        Connection con = getConnection();
-        String sql = "SELECT * FROM funcionario WHERE crm = ?";
-        Funcionario uf = new Funcionario();
-        ResultSet rs = null;
-
-        try
-        {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, entity.getCrm());
-            rs = ps.executeQuery();
-
-            rs.next();
-            uf.setCrm(rs.getString("crm"));
-            uf.setNome(rs.getString("nome_m"));
-            uf.setCpf(rs.getString("cpf"));
-            uf.setEndereco(rs.getString("endereco"));
-            uf.setSenha(rs.getString("senha"));
-            uf.setSalario(rs.getLong("salario"));
-
-            ps.close();
-        }
-        catch(SQLException e)
-        {
+    public Funcionario buscarPorCampo(String campo, String valor) {
+        String sql = SELECT_BY_FIELD_SQL + campo + " = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, valor);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return createFuncionarioFromResultSet(rs);
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        finally {closeConnection();}
-        return uf;
-    }
-
-    public Funcionario buscarPorNome(Funcionario entity)
-    {
-        Connection con = getConnection();
-        String sql = "SELECT * FROM funcionario WHERE nome_m = ?";
-        Funcionario uf = new Funcionario();
-        ResultSet rs = null;
-
-        try
-        {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, entity.getNome());
-            rs = ps.executeQuery();
-
-            rs.next();
-            uf.setCrm(rs.getString("crm"));
-            uf.setNome(rs.getString("nome_m"));
-            uf.setCpf(rs.getString("cpf"));
-            uf.setEndereco(rs.getString("endereco"));
-            uf.setSenha(rs.getString("senha"));
-            uf.setSalario(rs.getLong("salario"));
-
-            ps.close();
-            return uf;
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-        finally {closeConnection();}
+        return null;
     }
 
     @Override
-    public List<Funcionario> listar()
-    {
-        Connection con = getConnection();
-        String patric = "SELECT * FROM funcionario";
-        List<Funcionario> func = new ArrayList<Funcionario>();
-
-        try {
-            PreparedStatement ps = con.prepareStatement(patric);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-                Funcionario usu = new Funcionario();
-
-                try {
-                    usu.setCrm(rs.getString("crm"));
-                    usu.setNome(rs.getString("nome_m"));
-                    usu.setCpf(rs.getString("cpf"));
-                    usu.setEndereco(rs.getString("endereco"));
-                    usu.setSenha(rs.getString("senha"));
-                    usu.setSalario(rs.getLong("salario"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                func.add(usu);
-                ps.close();
+    public List<Funcionario> listar() {
+        List<Funcionario> func = new ArrayList<>();
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM funcionario");
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                func.add(createFuncionarioFromResultSet(rs));
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
-        finally {closeConnection();}
         return func;
+    }
+
+    private Funcionario createFuncionarioFromResultSet(ResultSet rs) throws SQLException {
+        Funcionario usu = new Funcionario();
+        usu.setCrm(rs.getString("crm"));
+        usu.setNome(rs.getString("nome_m"));
+        usu.setCpf(rs.getString("cpf"));
+        usu.setEndereco(rs.getString("endereco"));
+        usu.setSenha(rs.getString("senha"));
+        usu.setSalario(rs.getLong("salario"));
+        return usu;
     }
 }

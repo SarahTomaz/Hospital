@@ -11,10 +11,8 @@ import br.edu.ufersa.model.entity.Paciente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultasBo
-{
-    public void criar(Consulta cons)
-    {
+public class ConsultasBo {
+    public void criar(Consulta cons) {
         Funcionario t0 = new Funcionario();
         t0.setNome(cons.getNomeMedico());
         Paciente t1 = new Paciente();
@@ -26,12 +24,9 @@ public class ConsultasBo
 
         t0 = t0Dao.buscarPorNome(t0);
         t1 = t1Dao.buscarPorNome(t1);
-        if (t0 != null && t1 != null)
-        {
+        if (t0 != null && t1 != null) {
             consDao.inserir(cons);
-        }
-        else
-        {
+        } else {
             if (t0.getNome() == null)
                 throw new SemNomeException("Nome do medico não encontrado");
             else
@@ -39,40 +34,36 @@ public class ConsultasBo
         }
     }
 
-    public void deletar(Consulta cons)
-    {
+    public void deletar(Consulta cons) {
         ConsultaDao consDao = new ConsultaDao();
-
         cons.setId(ConsultaDao.buscarId(cons));
         consDao.deletar(cons);
     }
 
-    public void alterar(Consulta cons)
-    {
+    public void alterar(Consulta cons) {
         ConsultaDao consDao = new ConsultaDao();
-
         cons.setId(ConsultaDao.buscarId(cons));
         consDao.alterar(cons);
     }
 
-    public List<Consulta> buscarPorNomeM(Consulta cons)
-    {
+    public List<Consulta> buscarPorNome(String nome, String campo) {
         ConsultaDao consDao = new ConsultaDao();
+        Consulta cons = new Consulta();
 
-        return consDao.buscarPorNomeM(cons);
+        if ("medico".equalsIgnoreCase(campo)) {
+            cons.setNomeMedico(nome);
+        } else if ("paciente".equalsIgnoreCase(campo)) {
+            cons.setNomePaciente(nome);
+        } else {
+            // Lógica de tratamento de erro aqui, se necessário.
+            return new ArrayList<>();
+        }
+
+        return consDao.buscarPorNome(cons);
     }
 
-    public List<Consulta> buscarPorNomeP(Consulta cons)
-    {
+    public List<Consulta> listar() {
         ConsultaDao consDao = new ConsultaDao();
-
-        return consDao.buscarPorNomeP(cons);
-    }
-
-    public List<Consulta> listar()
-    {
-        ConsultaDao consDao = new ConsultaDao();
-
         return consDao.listar();
     }
 }

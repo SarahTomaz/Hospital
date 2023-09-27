@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.hospital.api.controller.CadastrarRelatorioController">
+   <items>
+      <AnchorPane maxHeight="56.0" minHeight="55.0" minWidth="0.0" prefHeight="56.0" prefWidth="598.0" style="-fx-background-color: BDE3FF;">
+         <children>
+            <TextField fx:id="busca" layoutX="122.0" layoutY="15.0" onAction="#buscar" prefHeight="27.0" prefWidth="435.0" promptText="Pesquisar...." />
+            <Button layoutX="557.0" layoutY="11.0" mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="27.0" style="-fx-background-color: #BDE3FF;">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@lupa%201.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="menuClose" layoutX="11.0" layoutY="7.0" mnemonicParsing="false" onAction="#fecharMenu" prefHeight="44.0" prefWidth="108.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #90ADC2; -fx-border-radius: 2;" text="Menu">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="menu" layoutX="11.0" layoutY="7.0" mnemonicParsing="false" onAction="#abrirMenu" prefHeight="44.0" prefWidth="108.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #90ADC2; -fx-border-radius: 2;" text="Menu">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ImageView fitHeight="335.0" fitWidth="349.0" layoutX="132.0" opacity="0.15" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logosaude.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="botaoVoltar" layoutX="5.0" layoutY="26.0" mnemonicParsing="false" onAction="#listarMedicos" style="-fx-background-color: #FFFFFF;">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@setavoltar.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <AnchorPane layoutX="50.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="45.0">
+               <children>
+                  <Rectangle fill="#cbd0d1" height="311.0" layoutY="-1.0" opacity="0.7" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="503.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="5.0" prefHeight="38.0" prefWidth="270.0" style="-fx-font-weight: 900; -fx-font-size: 24;" text="Relatório" textAlignment="CENTER" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="20.0" layoutY="61.0" prefHeight="15.0" prefWidth="41.0" text="Medico:" AnchorPane.leftAnchor="20.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nomeMedico" layoutX="63.0" layoutY="56.0" prefHeight="25.0" prefWidth="221.0" promptText="..." />
+                  <Label alignment="CENTER_RIGHT" layoutX="20.0" layoutY="91.0" prefHeight="15.0" prefWidth="40.0" text="de:" AnchorPane.leftAnchor="20.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="horaInicial" layoutX="63.0" layoutY="86.0" prefHeight="25.0" prefWidth="36.0" promptText="--:--" />
+                  <Label layoutX="103.0" layoutY="91.0" prefHeight="15.0" prefWidth="5.0" text="|" AnchorPane.leftAnchor="103.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="dataInicial" layoutX="109.0" layoutY="86.0" prefHeight="25.0" prefWidth="74.0" promptText="--/--/----" />
+                  <TextField fx:id="dataFinal" layoutX="329.0" layoutY="86.0" prefHeight="25.0" prefWidth="74.0" promptText="--/--/----" />
+                  <TextField fx:id="horaFinal" layoutX="283.0" layoutY="86.0" prefHeight="25.0" prefWidth="36.0" promptText="--:--" />
+                  <Label layoutX="323.0" layoutY="91.0" prefHeight="15.0" prefWidth="5.0" text="|">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="240.0" layoutY="91.0" prefHeight="15.0" prefWidth="40.0" text="até:">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="457.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+                  <AnchorPane fx:id="slider" layoutX="-38.0" layoutY="-24.0" prefHeight="107.0" prefWidth="89.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #90ADC2; -fx-border-radius: 2;" visible="false">
+                     <children>
+                        <Button alignment="CENTER_RIGHT" layoutY="70.0" mnemonicParsing="false" onAction="#listarConsultas" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #000000; -fx-border-radius: 2;" text="Consultas">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER_RIGHT" layoutY="35.0" mnemonicParsing="false" onAction="#listarPacientes" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #000000; -fx-border-radius: 2;" text="Pacientes" textAlignment="RIGHT">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#listarMedicos" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #000000; -fx-border-radius: 2;" text="Médicos  ">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="8.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon-pacientes.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="44.0" fitWidth="27.0" layoutX="8.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon-consultas.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon-medicos.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <TextArea fx:id="relatorioFinal" layoutX="20.0" layoutY="117.0" prefHeight="185.0" prefWidth="464.0" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="560.0" layoutY="310.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #CE5252;" styleClass="button-hand" text="Sair" textFill="#fff4f4" />
+         </children>
+      </AnchorPane>
+   </items>
+</SplitPane>

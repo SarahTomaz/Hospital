@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="356.0" style="-fx-background-color: #D9D9D9; -fx-border-color: #000000; -fx-border-width: 2;" stylesheets="@style-registros.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.hospital.api.controller.CadastrarPacienteController">
+   <children>
+      <ImageView fitHeight="363.0" fitWidth="365.0" layoutX="-7.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logosaude.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nome" layoutX="32.0" layoutY="80.0" prefHeight="25.0" prefWidth="285.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 2;" />
+      <TextField fx:id="cpf" layoutX="32.0" layoutY="132.0" prefHeight="25.0" prefWidth="285.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 2;" />
+      <Label layoutX="32.0" layoutY="116.0" text="CPF:">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="endereco" layoutX="32.0" layoutY="189.0" prefHeight="25.0" prefWidth="285.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 2;" />
+      <TextField fx:id="idade" layoutX="32.0" layoutY="244.0" prefHeight="25.0" prefWidth="285.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-border-radius: 2;" />
+      <Button layoutX="195.0" layoutY="321.0" mnemonicParsing="false" onAction="#cadastrar" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #000000; -fx-border-radius: 2px;" styleClass="button-hand" text="Cadastrar">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="32.0" layoutY="63.0" text="Nome:">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="32.0" layoutY="172.0" text="Endereço:">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="32.0" layoutY="227.0" text="Idade:">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="64.0" layoutY="321.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #CBD0D1; -fx-border-color: #000000; -fx-border-radius: 2px;" styleClass="button-hand" text="Cancelar">
+         <font>
+            <Font name="Yu Gothic Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

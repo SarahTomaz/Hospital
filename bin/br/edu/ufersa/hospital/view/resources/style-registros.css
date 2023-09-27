@@ -1,0 +1,19 @@
+.button-hand {
+    -fx-cursor: hand;
+}
+
+.button-hand:hover {
+    -fx-cursor: hand;
+}
+
+.icon-svg-editar {
+    -fx-fill: none;
+    -fx-stroke: #002947;
+    -fx-stroke-width: 2px;
+    -fx-cursor: hand;
+}
+
+.icon-svg-excluir {
+    -fx-fill: #002947;
+    -fx-cursor: hand;
+}

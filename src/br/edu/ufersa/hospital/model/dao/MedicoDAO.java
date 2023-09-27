@@ -205,7 +205,7 @@ public class MedicoDAO extends BaseDAO implements BaseInterDAO<Medico> {
 			}
 			else return null;
 		
-		} catch (SQLException ex) 
+		} catch (SQLException ex){
 			ex.printStackTrace();
 			return null;
 		}
@@ -213,19 +213,16 @@ public class MedicoDAO extends BaseDAO implements BaseInterDAO<Medico> {
 
 	@Override
 	public ResultSet encontrarPorCampoEspecifico(Medico e, String field) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResultSet BuscarPorId(Medico e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean editar(Consulta vo, int Pacienteid) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

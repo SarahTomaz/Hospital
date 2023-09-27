@@ -4,7 +4,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import br.edu.ufersa.hospital.api.dto.ProntuarioDTO;
 
-//Fazer os import do JavaFX e das views quando implementar
+import br.edu.ufersa.hospital.view.Telas;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
 public class CadastrarProntuarioController extends Object implements Initializable{
 
     @FXML private TextField busca;

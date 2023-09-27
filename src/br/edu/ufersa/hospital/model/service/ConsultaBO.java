@@ -82,8 +82,8 @@ public class ConsultaBO {
 
             while(rs.next()) {
                 ConsultaDTO cons = new ConsultaDTO();
-                cons.setIdPaciente(rs.getInt("idPaciente")); // vem string mesmo?
-                cons.setIdMedico(rs.getInt("idMedico"));	// vem string mesmo?
+                cons.setpacienteid(rs.getInt("pacienteid"));
+                cons.setMedicoid(rs.getInt("Medicoid"));
                 //cons.getProntuario().setId(rs.getInt("idProntuario"));
                 //cons.setId(rs.getInt("idConsulta"));
                 //cons.setData(LocalDate.parse(rs.getDate("dia").toString()));
@@ -108,8 +108,8 @@ public class ConsultaBO {
 
             while(rs.next()) {
                 ConsultaDTO cons = new ConsultaDTO();
-                cons.setIdPaciente(rs.getInt("idPaciente")); // vem string mesmo?
-                cons.setIdMedico(rs.getInt("idMedico"));	// vem string mesmo?
+                cons.setpacienteid(rs.getInt("pacienteid")); 
+                cons.setMedicoid(rs.getInt("Medicoid"));
                 //cons.getProntuario().setId(rs.getInt("idProntuario"));
                 cons.setId(rs.getInt("idConsulta"));
                 cons.setData(LocalDate.parse(rs.getDate("dia").toString()));

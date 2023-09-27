@@ -1,10 +1,12 @@
 package br.edu.ufersa.hospital.api.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import br.edu.ufersa.hospital.api.dto.MedicoDTO;
 import br.edu.ufersa.hospital.model.service.MedicoBO;
-//Fazer os import do JavaFX e das views quando implementar
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import br.edu.ufersa.hospital.view.Telas;
+
 public class CadastrarMedicoController {
     
     @FXML private TextField nome;

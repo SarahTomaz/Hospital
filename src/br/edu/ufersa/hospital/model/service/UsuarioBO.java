@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import br.edu.ufersa.hospital.Exception.AutenticationException;
 import br.edu.ufersa.hospital.Exception.PasswordErrorException;
 import br.edu.ufersa.hospital.api.dto.UsuarioDTO;
-import br.edu.ufersa.hospital.model.dao.AdmDAO;
+import br.edu.ufersa.hospital.model.dao.AdministratorDAO;
 import br.edu.ufersa.hospital.model.dao.UsuarioDAO;
 import br.edu.ufersa.hospital.model.entity.Usuario;
 
@@ -45,7 +45,7 @@ public Usuario autenticar(Usuario vo) throws AutenticationException{
 			else throw new AutenticationException();
 		}
 		else throw new AutenticationException();
-	} catch (SQLException e) 
+	} catch (SQLException e){
 		e.printStackTrace();
 		throw new AutenticationException();
 	}

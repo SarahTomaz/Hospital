@@ -10,7 +10,21 @@ import br.edu.ufersa.hospital.api.dto.MedicoDTO;
 import br.edu.ufersa.hospital.api.dto.ProntuarioDTO;
 import br.edu.ufersa.hospital.model.service.ConsultaBO;
 
-//Fazer os import do JavaFX e das views quando implementar
+import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+
 public class RegistroConsultasAdminController implements Initializable {
     
 

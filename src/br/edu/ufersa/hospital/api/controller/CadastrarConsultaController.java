@@ -8,6 +8,9 @@ import br.edu.ufersa.hospital.model.dao.MedicoDAO;
 import br.edu.ufersa.hospital.model.dao.PacienteDAO;
 import br.edu.ufersa.hospital.model.entity.Medico;
 import br.edu.ufersa.hospital.model.entity.Paciente;
+import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 
 //Fazer os import do JavaFX e das views quando implementar
 public class CadastrarConsultaController {

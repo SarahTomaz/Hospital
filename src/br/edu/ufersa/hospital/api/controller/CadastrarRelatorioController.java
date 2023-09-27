@@ -5,7 +5,14 @@ import java.util.List;
 import br.edu.ufersa.hospital.api.dto.ConsultaDTO;
 import br.edu.ufersa.hospital.api.dto.MedicoDTO;
 import br.edu.ufersa.hospital.model.service.ConsultaBO;
-//Fazer os import do JavaFX e das views quando implementar
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 public class CadastrarRelatorioController {
 
     //fields

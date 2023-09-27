@@ -14,7 +14,7 @@ public class AdministratorBO {
 	AdministratorDAO dao = new AdministratorDAO();
 public Administrator adicionar(AdministratorDTO AdministratorDTO) throws PasswordErrorException {
 	    
-	    Administrator admin = Adm.converter(AdministratorDTO);
+	    Administrator admin = Administrator.converter(AdministratorDTO);
       
 	    if(admin.getUsername().equals("")) {
 	    	throw new PasswordErrorException();
@@ -29,7 +29,6 @@ public Administrator adicionar(AdministratorDTO AdministratorDTO) throws Passwor
 			}
 			else throw new PasswordErrorException();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new PasswordErrorException();
 		}	
@@ -45,7 +44,6 @@ public Administrator autenticar(Administrator vo) throws AutenticationException{
 		}
 		else throw new AutenticationException();
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 		throw new AutenticationException();
 	}

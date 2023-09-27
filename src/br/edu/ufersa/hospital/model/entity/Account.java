@@ -1,20 +1,20 @@
 package br.edu.ufersa.hospital.model.entity;
 
-import br.edu.ufersa.hospital.api.dto.ContaDTO;
+import br.edu.ufersa.hospital.api.dto.AccountDTO;
 
-public class Conta {
+public class Account {
 	protected String username;
 	protected String senha;
 	protected String confirmSenha;
-	public Conta(Conta conta) {
-		this.username = conta.getUsername();
-		this.senha = conta.getSenha();
+	public Account(Account Account) {
+		this.username = Account.getUsername();
+		this.senha = Account.getSenha();
 	}
-	public Conta() {
+	public Account() {
 		this.username = null;
 		this.senha = null;
 	}
-	public Conta(String username, String senha) {
+	public Account(String username, String senha) {
 		setUsername(username);
 		setSenha(senha);
 	}
@@ -36,12 +36,12 @@ public class Conta {
         }
 	}
 	
-	 public static Conta converter(ContaDTO dto) {
-	        Conta conta = new Conta();
-	        conta.setUsername(dto.getUsername());
-	        conta.setSenha(dto.getSenha());
-	        conta.setConfirmSenha(dto.getConfirmSenha());
-	        return conta;
+	 public static Account converter(AccountDTO dto) {
+	        Account Account = new Account();
+	        Account.setUsername(dto.getUsername());
+	        Account.setSenha(dto.getSenha());
+	        Account.setConfirmSenha(dto.getConfirmSenha());
+	        return Account;
 	    }
 	public String getConfirmSenha() {
 		return confirmSenha;

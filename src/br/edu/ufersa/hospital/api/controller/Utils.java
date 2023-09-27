@@ -1,7 +1,15 @@
 package br.edu.ufersa.hospital.api.controller;
 
 import java.util.function.BiConsumer;
-//Fazer os import do JavaFX e das views quando implementar
+
+import javafx.event.ActionEvent;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 public class Utils {
 
   // Método genérico para adicionar um botão dentro da coluna de uma TableColumn

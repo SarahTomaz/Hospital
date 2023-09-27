@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import br.edu.ufersa.hospital.model.entity.Administrator;
 import br.edu.ufersa.hospital.model.entity.Consulta;
 
-public class AdministratorDAO extends BaseDAO implements BaseInterDAO<Adm> {
+public class AdministratorDAO extends BaseDAO implements BaseInterDAO<Administrator> {
 
 	@Override
 	public boolean cadastrar(Administrator vo) {
@@ -28,19 +28,19 @@ public class AdministratorDAO extends BaseDAO implements BaseInterDAO<Adm> {
 
 	@Override
 	public boolean excluirPorId(Administrator vo) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public ResultSet listar() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	
 	@Override
 	public ResultSet encontrar(Administrator vo) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -51,7 +51,7 @@ public class AdministratorDAO extends BaseDAO implements BaseInterDAO<Adm> {
 
 	@Override
 	public ResultSet encontrarPorCampoEspecifico(Administrator vo, String field) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	public ResultSet encontrarPorUsername(Administrator vo) {
@@ -71,31 +71,31 @@ public class AdministratorDAO extends BaseDAO implements BaseInterDAO<Adm> {
 
 	@Override
 	public ResultSet encontrarPorNome(Administrator e) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean excluirPorCPF(Administrator e) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean editar(Administrator e, String cpf) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public ResultSet BuscarPorId(Administrator e) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean editar(Consulta vo, int idPaciente) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 }

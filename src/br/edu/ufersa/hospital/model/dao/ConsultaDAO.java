@@ -22,8 +22,8 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(sql);
-			ps.setInt(1,vo.getIdPaciente());
-			ps.setInt(2,vo.getIdMedico());
+			ps.setInt(1,vo.getpacinteid());
+			ps.setInt(2,vo.getMedicoid());
 			ps.execute();
 			return true;
 
@@ -40,8 +40,8 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 		
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(sql);
-			ps.setInt(1,vo.getIdPaciente());
-			ps.setInt(2,vo.getIdMedico());
+			ps.setInt(1,vo.getpacinteid());
+			ps.setInt(2,vo.getMedicoid());
 			ps.setInt(3, idPaciente);
 			ps.executeUpdate();
 
@@ -60,7 +60,7 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 		
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(sql);
-			ps.setInt(1, vo.getIdPaciente());
+			ps.setInt(1, vo.getpacinteid());
 
 			return ps.execute();
 
@@ -137,7 +137,7 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
-            ps.setInt(1, e.getIdPaciente());
+            ps.setInt(1, e.getpacinteid());
 
             ResultSet rs = ps.executeQuery();
             return rs;
@@ -182,11 +182,11 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 				break;
 				
 			case "idPaciente":
-				pst.setInt(1, e.getIdPaciente());
+				pst.setInt(1, e.getpacinteid());
 				break;
 				
 			case "idMedico":
-				pst.setInt(1, e.getIdMedico());
+				pst.setInt(1, e.getMedicoid());
 				break;
 			
 			default: 
@@ -197,7 +197,6 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 			return rs;
 		
 		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
 			ex.printStackTrace();
 			return null;
 		}
@@ -205,31 +204,26 @@ public class ConsultaDAO extends BaseDAO implements BaseInterDAO<Consulta>{
 
 	@Override
 	public Consulta encontrarPorId(Consulta e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResultSet encontrarPorCampoEspecifico(Consulta e, String field) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResultSet encontrarPorNome(Consulta e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean excluirPorCPF(Consulta e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean editar(Consulta e, String cpf) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

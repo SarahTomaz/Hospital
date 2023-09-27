@@ -4,12 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.edu.ufersa.hospital.model.entity.Conta;
+import br.edu.ufersa.hospital.model.entity.Account;
 import br.edu.ufersa.hospital.model.entity.Usuario;
-import br.edu.ufersa.hospital.model.entity.Adm;
+import br.edu.ufersa.hospital.model.entity.Administrator;
 import br.edu.ufersa.hospital.model.entity.Consulta;
 
-public class ContaDAO<entity extends Conta> extends BaseDAO implements BaseInterDAO<entity> {
+public class AccountDAO<entity extends Account> extends BaseDAO implements BaseInterDAO<entity> {
 
 	@Override
 	public boolean cadastrar(entity e) {
@@ -31,31 +31,26 @@ public class ContaDAO<entity extends Conta> extends BaseDAO implements BaseInter
 
 	@Override
 	public boolean excluirPorId(entity e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ResultSet listar() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResultSet encontrar(entity e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public entity encontrarPorId(entity e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResultSet encontrarPorCampoEspecifico(entity e, String field) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	public ResultSet encontrarPorUsername(entity e) {
@@ -75,31 +70,26 @@ public class ContaDAO<entity extends Conta> extends BaseDAO implements BaseInter
 
 	@Override
 	public ResultSet encontrarPorNome(entity e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean excluirPorCPF(entity e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean editar(entity e, String valor) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ResultSet BuscarPorId(entity e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean editar(Consulta vo, int idPaciente) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

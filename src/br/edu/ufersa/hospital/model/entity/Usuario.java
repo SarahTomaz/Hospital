@@ -2,7 +2,7 @@ package br.edu.ufersa.hospital.model.entity;
 
 import br.edu.ufersa.hospital.api.dto.UsuarioDTO;
 
-public class Usuario extends Conta {
+public class Usuario extends Account {
 	public Usuario(Usuario user) {
 		this.username = user.getUsername();
 		this.senha = user.getSenha();

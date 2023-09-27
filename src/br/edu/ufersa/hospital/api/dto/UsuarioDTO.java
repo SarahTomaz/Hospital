@@ -1,6 +1,6 @@
 package br.edu.ufersa.hospital.api.dto;
 
-public class UsuarioDTO extends ContaDTO {
+public class UsuarioDTO extends AccountDTO {
 	
 	private String username;
 	private String senha;

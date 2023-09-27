@@ -4,9 +4,15 @@ import br.edu.ufersa.hospital.Exception.PasswordErrorException;
 import br.edu.ufersa.hospital.api.dto.AdministratorDTO;
 import br.edu.ufersa.hospital.model.entity.Administrator;
 import br.edu.ufersa.hospital.model.service.AdministratorBO;
-import br.edu.ufersa.hospital.model.service.ContaBO;
+import br.edu.ufersa.hospital.model.service.AccountBO;
 
-//Fazer os import do JavaFX e das views quando implementar
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+
 public class CadastroAdminController {
 	
 		@FXML private TextField username;
@@ -16,7 +22,7 @@ public class CadastroAdminController {
 	    @FXML private Label erroAutent;
 	    @FXML private Button botaoFechar;
 	    AdministratorBO bo = new AdministratorBO();
-	    ContaBO bo2 = new ContaBO();
+	    AccountBO bo2 = new AccountBO();
 	    public void cadastrar(ActionEvent action){
 			AdministratorDTO admin = new AdministratorDTO();
 	      if(senha.getText().equals(confirmSenha.getText())) {

@@ -2,7 +2,7 @@ package br.edu.ufersa.hospital.model.entity;
 
 import br.edu.ufersa.hospital.api.dto.AdministratorDTO;
 
-public class Administrator extends Conta {
+public class Administrator extends Account {
 	public Administrator(Administrator admin) {
 		this.username = admin.getUsername();
 		this.senha = admin.getSenha();

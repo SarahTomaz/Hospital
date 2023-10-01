@@ -1,0 +1,46 @@
+create table funcionario
+(
+	crm varchar(15) primary key,
+	cpf varchar(15),
+	nome varchar(50),
+	endereco varchar(100),
+	senha varchar(30),
+	salario bigint,
+	gerente boolean
+);
+
+create table paciente
+(
+	cpf varchar(15) primary key,
+	nome varchar(50),
+	endereco varchar(100),
+	idade int
+);
+
+create table prontuario
+(
+	id serial primary key,
+	p_cpf varchar(15) references paciente(cpf),
+	data_cricao date,
+	observacoes varchar(1000)
+);
+
+create table consulta
+(
+	id serial primary key,
+	medico varchar(15) references funcionario(crm),
+	peciente varchar(15) references pacientes(cpf),
+	data_consulta date
+);
+___________________________________________________________________________
+select * from funcionario;
+select * from paciente;
+select * from prontuario;
+select * from consulta;
+___________________________________________________________________________
+insert into funcionario values ('1', '1', 'a', 'a', 'a', 1, true), 
+	('2', '123', 'Maria', 'b', 'b', 2, false);
+insert into paciente values ('1', 'IAs', 'jasvcak', 15), 
+	('2', 'IBs', 'Josias', 15);
+insert into consulta values (1, '1', '1', '2001-11-09'), (3, '2', '1', '2001-11-10'),
+	(4, '2', '2', '2001-11-10'), (2, '1', '2', '2001-11-10');

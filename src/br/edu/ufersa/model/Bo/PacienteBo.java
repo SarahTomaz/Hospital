@@ -3,6 +3,7 @@ package br.edu.ufersa.model.Bo;
 import br.edu.ufersa.DAO.BaseDao;
 import br.edu.ufersa.DAO.PacienteDao;
 import br.edu.ufersa.DAO.ProntuarioDao;
+import br.edu.ufersa.exception.CampoVazioException;
 import br.edu.ufersa.model.entity.Paciente;
 import br.edu.ufersa.model.entity.Prontuario;
 
@@ -11,58 +12,97 @@ import java.util.List;
 
 public class PacienteBo
 {
-    Paciente pc = null;
+    public void criar(Paciente pac) throws Exception {
+        if (pac.isValid())
+        {
+            PacienteDao pacDao = new PacienteDao();
 
-    BaseDao<Paciente> pacDao = new PacienteDao();
-    public void criar(Paciente pac)
-    {
-        Prontuario pro = pac.getProntuario();
-        BaseDao<Prontuario> proDao = new ProntuarioDao();
+            List<Paciente> pacList = pacDao.buscarPorCpf(pac);
 
-        pro.setId(proDao.inserir(pro));
-        pac.setProntuario(pro);
-        pacDao.inserir(pac);
+            if (pacList.isEmpty())
+            {
+                pacDao.inserir(pac);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        else
+        {
+            throw new CampoVazioException("Paciente Inválido");
+        }
     }
 
-    public void deletar(Paciente pac)
+    public void deletar(Paciente pac) throws Exception
     {
-        Prontuario pro = pac.getProntuario();
-        ProntuarioDao proDao = new ProntuarioDao();
+            PacienteDao pacDao = new PacienteDao();
+            List<Paciente> pacList = pacDao.buscarPorCpf(pac);
 
-        pacDao.deletar(pac);
-        pro.setId(proDao.buscarId(pro));
-        proDao.deletar(pro);
-        pro = null;
+            if (!pacList.isEmpty())
+            {
+                pacDao.deletar(pac);
+            }
+            else
+            {
+                throw new Exception();
+            }
     }
 
-    public void alterar(Paciente pac)
+    public void alterar(Paciente pac) throws Exception
     {
-        pacDao.alterar(pac);
+        if (pac.isValid())
+        {
+            PacienteDao pacDao = new PacienteDao();
+            List<Paciente> pacList = pacDao.buscarPorCpf(pac);
+
+            if (!pacList.isEmpty())
+            {
+                pacDao.alterar(pac);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        else
+        {
+            throw new CampoVazioException("A alteração não é válida, pois um dos campos é vazio");
+        }
     }
 
-    public Paciente buscarPorCpf(Paciente pac)
+    public List<Paciente> buscarPorCpf(Paciente pac)
     {
-       PacienteDao pacDao1 = new PacienteDao();
+        if (pac.getCpf() != null && !pac.getCpf().isEmpty())
+        {
+            PacienteDao pacDao = new PacienteDao();
 
-           pc = pacDao1.buscarPorCpf(pac);
-           return pc;
+            return pacDao.buscarPorCpf(pac);
+        }
+        else
+        {
+            throw new CampoVazioException("Este CPF não está presente no sistema");
+        }
     }
 
-    public Paciente buscarPorNome(Paciente pac)
+    public List<Paciente> buscarPorNome(Paciente pac)
     {
-        PacienteDao pacDao1 = new PacienteDao();
+        if (pac.getNome() != null && !pac.getNome().isEmpty())
+        {
+            PacienteDao pacDao = new PacienteDao();
 
-        pc = pacDao1.buscarPorNome(pac);
-        return pc;
+            return pacDao.buscarPorNome(pac);
+        }
+        else
+        {
+            throw new CampoVazioException("Nome não está presente no sistema");
+        }
     }
 
     public List<Paciente> listar()
     {
-        List<Paciente> pac = new ArrayList<Paciente>();
         BaseDao<Paciente> pacDao = new PacienteDao();
 
-        pac = pacDao.listar();
-        return pac;
+        return pacDao.listar();
     }
-
 }

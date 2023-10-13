@@ -9,105 +9,268 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultaDao extends BaseDaoImpl<Consulta> {
-
-    private static final String INSERT_SQL = "INSERT INTO consultas (nome_m, nome_p, diamarcado) VALUES (?, ?, ?)";
-    private static final String DELETE_SQL = "DELETE FROM consultas WHERE c_id = ?";
-    private static final String UPDATE_SQL = "UPDATE consultas SET diamarcado = ? WHERE c_id = ?";
-    private static final String SELECT_BY_ID_SQL = "SELECT * FROM consultas WHERE c_id = ?";
-    private static final String SELECT_BY_FIELD_SQL = "SELECT * FROM consultas WHERE ";
-
+public class ConsultaDao extends BaseDaoImpl<Consulta>
+{
     @Override
-    public Long inserir(Consulta entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, entity.getNomeMedico());
-            ps.setString(2, entity.getNomePaciente());
-            ps.setDate(3, entity.getData());
-            ps.execute();
+    public Long inserir(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "INSERT INTO consulta VALUES (?, ?, ?, ?)";
 
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    return rs.getLong(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setLong(1, entity.getId());
+            ps.setString(2, entity.getMedico());
+            ps.setString(3, entity.getPaciente());
+            ps.setDate(4, entity.getData());
+            ps.execute();
+            ps.close();
         }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
         return null;
     }
 
     @Override
-    public void deletar(Consulta entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(DELETE_SQL)) {
+    public void deletar(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "DELETE FROM consulta WHERE id = ?";
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setLong(1, entity.getId());
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+            ps.close();
         }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
     }
 
-    @Override
-    public void alterar(Consulta entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(UPDATE_SQL)) {
-            ps.setDate(1, entity.getData());
-            ps.setLong(2, entity.getId());
+    public void alterar(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "UPDATE consulta SET id = ?, medico = ?, paciente = ?, data_consulta = ? WHERE id = ?";
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ps.setString(2, entity.getMedico());
+            ps.setString(3, entity.getPaciente());
+            ps.setDate(4, entity.getData());
+            ps.setLong(5, entity.getId());
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+            ps.close();
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        closeConnection();
+    }
+
+    public List<Consulta> buscarPorId(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM consulta where id = ?";
+        List<Consulta> conList = new ArrayList<>();
+
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("medico"));
+                    cs.setPaciente(rs.getString("paciente"));
+                    cs.setData(rs.getDate("data_consulta"));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
+    }
+
+    public List<Consulta> buscarPorNomeM(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM consulta where medico = ?";
+        List<Consulta> conList = new ArrayList<>();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, entity.getMedico());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("medico"));
+                    cs.setPaciente(rs.getString("paciente"));
+                    cs.setData(rs.getDate("data_consulta"));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
+    }
+
+    public List<Consulta> buscarPorNomeP(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM consulta where paciente = ?";
+        List<Consulta> conList = new ArrayList<>();
+
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, entity.getPaciente());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("medico"));
+                    cs.setPaciente(rs.getString("paciente"));
+                    cs.setData(rs.getDate("data_consulta"));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
+    }
+
+    public List<Consulta> buscarPorData(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM consulta where data_consulta = ?";
+        List<Consulta> conList = new ArrayList<>();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, entity.getData());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("medico"));
+                    cs.setPaciente(rs.getString("paciente"));
+                    cs.setData(rs.getDate("data_consulta"));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
     }
 
     @Override
-    public List<Consulta> listar() {
-        List<Consulta> cons = new ArrayList<>();
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT * FROM consultas");
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                cons.add(createConsultaFromResultSet(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
-        }
-        return cons;
-    }
+    public List<Consulta> listar()
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM consulta";
+        List<Consulta> conList = new ArrayList<Consulta>();
 
-    public List<Consulta> buscarPorCampo(String campo, String valor) {
-        List<Consulta> cons = new ArrayList<>();
-        String sql = SELECT_BY_FIELD_SQL + campo + " = ?";
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, valor);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    cons.add(createConsultaFromResultSet(rs));
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("medico"));
+                    cs.setPaciente(rs.getString("paciente"));
+                    cs.setData(rs.getDate("data_consulta"));
                 }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
-        }
-        return cons;
-    }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
 
-    private Consulta createConsultaFromResultSet(ResultSet rs) throws SQLException {
-        Consulta cs = new Consulta();
-        cs.setId(rs.getLong("c_id"));
-        cs.setNomeMedico(rs.getString("nome_m"));
-        cs.setNomePaciente(rs.getString("nome_p"));
-        cs.setData(rs.getDate("diamarcado"));
-        return cs;
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
     }
 }

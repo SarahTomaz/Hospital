@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.TelaInicioGerente">
+   <children>
+      <Label fx:id="nomeUsu" layoutX="499.0" layoutY="15.0" maxWidth="89.0" prefHeight="17.0" prefWidth="89.0" text="Dr. " />
+      <ImageView fitHeight="50.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="botaoMedicos" layoutX="31.0" layoutY="97.0" mnemonicParsing="false" onAction="#irTelaMedicos" onMouseEntered="#mudarCorMed" onMouseExited="#voltarCorMed" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Medicos" textAlignment="CENTER" />
+      <Button fx:id="botaoPacientes" layoutX="31.0" layoutY="162.0" mnemonicParsing="false" onAction="#irTelaPacientes" onMouseEntered="#mudarCorPac" onMouseExited="#voltarCorPac" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Pacientes" />
+      <Button fx:id="botaoProntuarios" layoutX="31.0" layoutY="227.0" mnemonicParsing="false" onAction="#irTelaProntuarios" onMouseEntered="#mudarCorPro" onMouseExited="#voltarCorPro" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Prontuários" />
+      <Button fx:id="botaoAgenda" layoutX="31.0" layoutY="292.0" mnemonicParsing="false" onAction="#irTelaAgendas" onMouseEntered="#mudarCorAg" onMouseExited="#voltarCorAg" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Agenda" />
+      <ImageView fitHeight="70.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="465.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/imgUsu.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

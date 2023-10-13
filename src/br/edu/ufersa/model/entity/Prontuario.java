@@ -7,8 +7,9 @@ import java.sql.Date;
 public class Prontuario
 {
     private Long id;
+    private String p_Cpf;
     private Date data;
-    private String Observacoes;
+    private String observacoes;
 
     public void setId(Long id)
     {
@@ -21,6 +22,20 @@ public class Prontuario
     }
     public Long getId()
     {return this.id;}
+
+    public void setP_Cpf(String p_Cpf)
+    {
+        if (p_Cpf != null && !p_Cpf.isEmpty())
+        {
+            this.p_Cpf = p_Cpf;
+        }
+        else
+        {
+            throw new CampoVazioException("Campo 'p_Cpf' não pode ser vazio");
+        }
+    }
+    public String getP_Cpf()
+    {return this.p_Cpf;}
 
     public void setData(Date data)
     {
@@ -41,7 +56,7 @@ public class Prontuario
     {
         if (observacoes != null && !observacoes.isEmpty())
         {
-            this.Observacoes = observacoes;
+            this.observacoes = observacoes;
         }
         else
         {
@@ -49,5 +64,12 @@ public class Prontuario
         }
     }
     public String getObservacoes()
-    {return this.Observacoes;}
+    {return this.observacoes;}
+
+    public boolean isValid()
+    {
+        return this.id > 0 && this.data != null &&
+                this.observacoes != null && !this.observacoes.isEmpty() &&
+                this.p_Cpf != null && !this.p_Cpf.isEmpty();
+    }
 }

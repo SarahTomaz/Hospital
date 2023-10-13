@@ -7,8 +7,8 @@ import java.sql.Date;
 public class Consulta
 {
     Long id;
-    String nomeMedico;
-    String nomePaciente;
+    String medico;
+    String paciente;
     Date data;
 
     public void setId(Long id)
@@ -35,27 +35,35 @@ public class Consulta
     public Date getData()
     {return this.data;}
 
-    public void setNomeMedico(String nomeMedico)
+    public void setMedico(String nomeMedico)
     {
         if (nomeMedico != null && !nomeMedico.isEmpty())
         {
-            this.nomeMedico = nomeMedico;
+            this.medico = nomeMedico;
         }
         else
             throw new CampoVazioException("Campo 'nome_medico' não pode ser vazio");
     }
-    public String getNomeMedico()
-    {return this.nomeMedico;}
+    public String getMedico()
+    {return this.medico;}
 
-    public void setNomePaciente(String nomePaciente)
+    public void setPaciente(String nomePaciente)
     {
         if (nomePaciente != null && !nomePaciente.isEmpty())
         {
-            this.nomePaciente = nomePaciente;
+            this.paciente = nomePaciente;
         }
         else
             throw new CampoVazioException("Campo 'nome_paciente' não pode ser vazio");
     }
-    public String getNomePaciente()
-    {return this.nomePaciente;}
+    public String getPaciente()
+    {return this.paciente;}
+
+    public boolean isValid()
+    {
+        return (this.id != null && this.id > 0 &&
+                this.medico != null && !this.medico.isEmpty() &&
+                this.paciente != null && !this.paciente.isEmpty() &&
+                this.data != null);
+    }
 }

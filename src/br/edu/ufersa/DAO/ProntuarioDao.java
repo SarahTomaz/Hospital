@@ -9,101 +9,180 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProntuarioDao extends BaseDaoImpl<Prontuario> {
-
-    private static final String INSERT_SQL = "INSERT INTO prontuario (horario, observacoes) VALUES (?, ?)";
-    private static final String DELETE_SQL = "DELETE FROM prontuario WHERE p_id = ?";
-    private static final String UPDATE_SQL = "UPDATE prontuario SET observacoes = ? WHERE p_id = ?";
-    private static final String SELECT_BY_FIELD_SQL = "SELECT * FROM prontuario WHERE ";
-
+public class ProntuarioDao extends BaseDaoImpl<Prontuario>
+{
     @Override
-    public Long inserir(Prontuario entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setDate(1, entity.getData());
-            ps.setString(2, entity.getObservacoes());
-            ps.execute();
+    public Long inserir(Prontuario entity)
+    {
+        Connection con = getConnection();
+        String sql = "INSERT INTO prontuario VALUES (?, ?, ?, ?)";
 
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    return rs.getLong(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ps.setString(2, entity.getP_Cpf());
+            ps.setDate(3, entity.getData());
+            ps.setString(4, entity.getObservacoes());
+            ps.execute();
+            ps.close();
         }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        finally {closeConnection();}
         return null;
     }
 
     @Override
-    public void deletar(Prontuario entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(DELETE_SQL)) {
+    public void deletar(Prontuario entity)
+    {
+        Connection con = getConnection();
+        String sql = "DELETE FROM prontuario WHERE id = ?";
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+
             ps.setLong(1, entity.getId());
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+            ps.close();
         }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
     }
 
     @Override
-    public void alterar(Prontuario entity) {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(UPDATE_SQL)) {
-            ps.setString(1, entity.getObservacoes());
-            ps.setLong(2, entity.getId());
+    public void alterar(Prontuario entity)
+    {
+        Connection con = getConnection();
+        String sql = "UPDATE prontuario SET id = ?, p_cpf = ?, data_criacao = ?, observacoes = ? WHERE id = ?";
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ps.setString(2, entity.getP_Cpf());
+            ps.setDate(3, entity.getData());
+            ps.setString(4, entity.getObservacoes());
+            ps.setLong(5, entity.getId());
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+            ps.close();
         }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
     }
 
-    public Prontuario buscarPorCampo(String campo, String valor) {
-        String sql = SELECT_BY_FIELD_SQL + campo + " = ?";
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, valor);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return createProntuarioFromResultSet(rs);
-                }
+    public List<Prontuario> buscarPorId(Prontuario entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM prontuario WHERE id = ?";
+        List<Prontuario> proList = new ArrayList<>();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Prontuario pro = new Prontuario();
+
+                pro.setId(rs.getLong("id"));
+                pro.setP_Cpf(rs.getString("p_cpf"));
+                pro.setData(rs.getDate("data_criacao"));
+                pro.setObservacoes(rs.getString("observacoes"));
+
+                proList.add(pro);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
+            ps.close();
         }
-        return null;
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return proList;
+    }
+
+    public List<Prontuario> buscarPorP_Cpf(Prontuario entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM prontuario WHERE p_Cpf = ?";
+        List<Prontuario> proList = new ArrayList<>();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, entity.getP_Cpf());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Prontuario pro = new Prontuario();
+
+                pro.setId(rs.getLong("id"));
+                pro.setP_Cpf(rs.getString("p_cpf"));
+                pro.setData(rs.getDate("data_criacao"));
+                pro.setObservacoes(rs.getString("observacoes"));
+
+                proList.add(pro);
+            }
+            ps.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return proList;
     }
 
     @Override
-    public List<Prontuario> listar() {
-        List<Prontuario> prontuarios = new ArrayList<>();
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT * FROM prontuario");
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                prontuarios.add(createProntuarioFromResultSet(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection();
-        }
-        return prontuarios;
-    }
+    public List<Prontuario> listar()
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM prontuario";
+        List<Prontuario> proList = new ArrayList<>();
 
-    private Prontuario createProntuarioFromResultSet(ResultSet rs) throws SQLException {
-        Prontuario prontuario = new Prontuario();
-        prontuario.setId(rs.getLong("p_id"));
-        prontuario.setData(rs.getDate("horario"));
-        prontuario.setObservacoes(rs.getString("observacoes"));
-        return prontuario;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Prontuario pro = new Prontuario();
+
+                try
+                {
+                    pro.setId(rs.getLong("id"));
+                    pro.setP_Cpf(rs.getString("p_cpf"));
+                    pro.setData(rs.getDate("data_criacao"));
+                    pro.setObservacoes(rs.getString("observacoes"));
+
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                proList.add(pro);
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return proList;
     }
 }

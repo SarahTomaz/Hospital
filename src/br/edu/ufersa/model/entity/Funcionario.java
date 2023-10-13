@@ -6,7 +6,8 @@ public class Funcionario extends User
 {
     private String senha;
     private String crm;
-    private double salario;
+    private Double salario;
+    private boolean gerente;
 
     public void setSenha(String senha)
     {
@@ -44,4 +45,21 @@ public class Funcionario extends User
     public double getSalario()
     {return this.salario;}
 
+
+    public void setGerente(boolean gerente)
+    {
+        this.gerente = gerente;
+    }
+    public boolean getGerente()
+    {return this.gerente;}
+
+    public boolean isValid()
+    {
+        return this.getNome() != null && !this.getNome().isEmpty() &&
+                this.getCpf() != null && !this.getCpf().isEmpty() &&
+                this.getEndereco() != null && !this.getEndereco().isEmpty() &&
+                this.crm != null && !this.crm.isEmpty() &&
+                this.senha != null && !this.senha.isEmpty() &&
+                this.salario != null && this.salario > 0;
+    }
 }

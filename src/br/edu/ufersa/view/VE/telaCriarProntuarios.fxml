@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.Prontuarios.TelaCriarProntuarios">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="143.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/imgUsu.png" />
+         </image>
+      </ImageView>
+      <ChoiceBox fx:id="cpf" accessibleRole="LIST_ITEM" layoutX="143.0" layoutY="97.0" prefHeight="25.0" prefWidth="151.0" />
+      <Label layoutX="143.0" layoutY="74.0" text="Cpf do(a) Paciente" />
+      <TextField fx:id="data" editable="false" layoutX="307.0" layoutY="97.0" prefHeight="25.0" prefWidth="187.0" promptText="Data de Criação">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label layoutX="307.0" layoutY="74.0" text="Data de Criação" />
+      <TextArea fx:id="observacoes" layoutX="143.0" layoutY="155.0" prefHeight="155.0" prefWidth="403.0" promptText="Observações" />
+      <Label layoutX="143.0" layoutY="135.0" text="Observações" />
+      <Label fx:id="erroaut" alignment="TOP_CENTER" layoutX="212.0" layoutY="331.0" text="Nenhum campo pode ser vazio" textAlignment="CENTER" textFill="RED" textOverrun="CENTER_ELLIPSIS" visible="false" wrapText="true" />
+      <Button fx:id="cancelarIns" layoutX="319.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancelar" onMouseEntered="#mudarCorCan" onMouseExited="#voltarCorCan" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Cancelar Alterações">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="realizarIns" layoutX="165.0" layoutY="361.0" mnemonicParsing="false" onAction="#inserir" onMouseEntered="#mudarCorAlt" onMouseExited="#voltarCorAlt" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Realizar Alterações">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label alignment="TOP_CENTER" layoutX="286.0" layoutY="340.0" text="Erroaut" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
+   </children>
+</Pane>

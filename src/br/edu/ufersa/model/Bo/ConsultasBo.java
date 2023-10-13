@@ -3,67 +3,153 @@ package br.edu.ufersa.model.Bo;
 import br.edu.ufersa.DAO.ConsultaDao;
 import br.edu.ufersa.DAO.FuncionarioDao;
 import br.edu.ufersa.DAO.PacienteDao;
+import br.edu.ufersa.DAO.ProntuarioDao;
+import br.edu.ufersa.exception.CampoVazioException;
 import br.edu.ufersa.exception.SemNomeException;
 import br.edu.ufersa.model.entity.Consulta;
 import br.edu.ufersa.model.entity.Funcionario;
 import br.edu.ufersa.model.entity.Paciente;
+import br.edu.ufersa.model.entity.Prontuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultasBo {
-    public void criar(Consulta cons) {
-        Funcionario t0 = new Funcionario();
-        t0.setNome(cons.getNomeMedico());
-        Paciente t1 = new Paciente();
-        t1.setNome(cons.getNomePaciente());
+public class ConsultasBo
+{
+    public boolean autenticarNomes(Consulta cons)
+    {
+        FuncionarioBo funcBo = new FuncionarioBo();
+        Funcionario func = new Funcionario();
+        func.setNome(cons.getMedico());
 
-        FuncionarioDao t0Dao = new FuncionarioDao();
-        PacienteDao t1Dao = new PacienteDao();
+        PacienteBo pacBo = new PacienteBo();
+        Paciente pac = new Paciente();
+        pac.setNome(cons.getPaciente());
+
+        List<Funcionario> funcList = funcBo.buscarPorNome(func);
+        List<Paciente> pacList = pacBo.buscarPorNome(pac);
+
+        return (!funcList.isEmpty() && !pacList.isEmpty());
+    }
+    public Long stableId()
+    {
         ConsultaDao consDao = new ConsultaDao();
+        List<Consulta> consList = consDao.listar();
 
-        t0 = t0Dao.buscarPorNome(t0);
-        t1 = t1Dao.buscarPorNome(t1);
-        if (t0 != null && t1 != null) {
-            consDao.inserir(cons);
-        } else {
-            if (t0.getNome() == null)
-                throw new SemNomeException("Nome do medico não encontrado");
+        if (consList.isEmpty())
+        {
+            return 1L;
+        }
+        else
+        {
+            return ((consList.get(consList.size() - 1).getId()) + 1);
+        }
+    }
+    public void criar(Consulta cons)
+    {
+        cons.setId(stableId());
+
+        boolean autenticado = autenticarNomes(cons);
+        if (cons.isValid() && autenticado) {
+            ConsultaDao conDao = new ConsultaDao();
+
+            conDao.inserir(cons);
+        }
+        else
+        {
+            if (autenticado)
+            {
+                throw new CampoVazioException("Um dos campos é inválido");
+            }
             else
-                throw new SemNomeException("Nome do paciente não encontrado");
+            {
+                throw new CampoVazioException("Nome do Medico ou Paciente não encontrado");
+            }
         }
     }
 
-    public void deletar(Consulta cons) {
+    public void deletar(Consulta cons)
+    {
         ConsultaDao consDao = new ConsultaDao();
-        cons.setId(ConsultaDao.buscarId(cons));
-        consDao.deletar(cons);
-    }
+        List<Consulta> consList = consDao.buscarPorId(cons);
 
-    public void alterar(Consulta cons) {
-        ConsultaDao consDao = new ConsultaDao();
-        cons.setId(ConsultaDao.buscarId(cons));
-        consDao.alterar(cons);
-    }
-
-    public List<Consulta> buscarPorNome(String nome, String campo) {
-        ConsultaDao consDao = new ConsultaDao();
-        Consulta cons = new Consulta();
-
-        if ("medico".equalsIgnoreCase(campo)) {
-            cons.setNomeMedico(nome);
-        } else if ("paciente".equalsIgnoreCase(campo)) {
-            cons.setNomePaciente(nome);
-        } else {
-            // Lógica de tratamento de erro aqui, se necessário.
-            return new ArrayList<>();
+        if (!consList.isEmpty())
+        {
+            consDao.deletar(cons);
         }
-
-        return consDao.buscarPorNome(cons);
+        else
+        {
+            throw new CampoVazioException("O id dessa consulta não foi encontrado");
+        }
     }
 
-    public List<Consulta> listar() {
+    public void alterar(Consulta cons) throws Exception {
+        if (cons.isValid())
+        {
+            ConsultaDao consDao = new ConsultaDao();
+            List<Consulta> consList = consDao.buscarPorId(cons);
+
+            if (!consList.isEmpty())
+            {
+                consDao.alterar(cons);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        else
+        {
+            throw new CampoVazioException("A consulta não existe");
+        }
+    }
+
+    public List<Consulta> buscarPorNomeM(Consulta cons)
+    {
+        if (cons.getMedico() != null && !cons.getPaciente().isEmpty())
+        {
+            ConsultaDao consDao = new ConsultaDao();
+
+            return consDao.buscarPorNomeM(cons);
+        }
+        else
+        {
+            throw new CampoVazioException("Este médico não esta presente no sistema");
+        }
+    }
+
+    public List<Consulta> buscarPorNomeP(Consulta cons)
+    {
+        if (cons.getPaciente() != null && !cons.getPaciente().isEmpty())
+        {
+            ConsultaDao consDao = new ConsultaDao();
+
+            return consDao.buscarPorNomeP(cons);
+        }
+        else
+        {
+            throw new CampoVazioException("Este paciente não esta presente no sistema");
+        }
+    }
+
+    public List<Consulta> buscarPorData(Consulta cons)
+    {
+        if (cons.getData() != null)
+        {
+            ConsultaDao  consDao = new ConsultaDao();
+
+            return consDao.buscarPorData(cons);
+        }
+        else
+        {
+            throw new CampoVazioException("Não há nenhuma consulta marcada para esta data");
+        }
+    }
+
+    public List<Consulta> listar()
+    {
         ConsultaDao consDao = new ConsultaDao();
+
         return consDao.listar();
     }
 }

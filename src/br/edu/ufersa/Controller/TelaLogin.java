@@ -7,16 +7,19 @@ import br.edu.ufersa.view.Telas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class TelaLogin
 {
     @FXML private TextField login;
-    @FXML private TextField senha;
+    @FXML private PasswordField senha;
     @FXML private Label erroaut = new Label();
 
     FuncionarioBo funcBO = new FuncionarioBo();
-    public void autenticar(ActionEvent event)
+    public void autenticar(ActionEvent actionEvent)
     {
         Funcionario func = new Funcionario();
 
@@ -33,14 +36,9 @@ public class TelaLogin
         try
         {
             Funcionario autenticado = funcBO.autenticar(func);
-            if(autenticado.getGerente())
+            if(autenticado.isValid())
             {
-                Telas.telaPrincipalGerente(autenticado);
-            }
-            else
-            {
-                //TODO
-                Telas.telaPrincipalGerente(autenticado);
+                Telas.telaPrincipal(autenticado);
             }
         }
         catch(Exception e)
@@ -48,6 +46,14 @@ public class TelaLogin
             this.erroaut.setText("Usuário ou senha inválidos");
             this.erroaut.setVisible(true);
             e.printStackTrace();
+        }
+    }
+
+    public void autenticarEnter(KeyEvent keyEvent)
+    {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+        {
+            autenticar(new ActionEvent());
         }
     }
 }

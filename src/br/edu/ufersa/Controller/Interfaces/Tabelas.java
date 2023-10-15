@@ -8,14 +8,16 @@ import java.util.List;
 
 public interface Tabelas <O>
 {
-    public void initialize();
-    public void updateTable(List<O> list);
-    public void stableTable();
-    public void busca();
-    public void buscaEnter(KeyEvent keyEvent);
-    public void deletaLinha();
-    public void deletaDel(KeyEvent keyEvent);
-    public void deletaBotao(MouseEvent mouseEvent);
-    public void editar(MouseEvent mouseEvent);
-    public void adicionar(MouseEvent mouseEvent);
+    void initialize();
+    void updateTable(List<O> list);
+    void stableTable();
+    void busca();
+    void buscaEnter(KeyEvent keyEvent);
+    void deletaLinha();
+    void deletaDel(KeyEvent keyEvent);
+    void deletaBotao(MouseEvent mouseEvent);
+    void editar(MouseEvent mouseEvent);
+    void adicionar(MouseEvent mouseEvent);
+    void sair(MouseEvent mouseEvent);
+    void retornar(MouseEvent mouseEvent);
 }

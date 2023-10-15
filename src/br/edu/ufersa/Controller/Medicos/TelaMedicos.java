@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario>
 {
-    @FXML private TableView<Funcionario> tabelaFuncionario = new TableView<Funcionario>();
+    @FXML private TableView<Funcionario> tabelaFuncionario = new TableView<>();
     @FXML private TableColumn colCrm = new TableColumn<Funcionario, String>("Crm");
     @FXML private TableColumn colCpf = new TableColumn<Funcionario, String>("Cpf");
     @FXML private TableColumn colNome = new TableColumn<Funcionario, String>("Nome");
@@ -31,6 +31,8 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
     @FXML private TableColumn colSal = new TableColumn<Funcionario, Double>("Salario");
 
     ObservableList<Funcionario> lista = FXCollections.observableArrayList();
+
+    @FXML Label nomeUsu = new Label();
 
     public void initialize() {
         FuncionarioBo funcBo = new FuncionarioBo();
@@ -41,6 +43,7 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
         colEnd.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("endereco"));
         colSal.setCellValueFactory(new PropertyValueFactory<Funcionario, Double>("salario"));
 
+        tabelaFuncionario.getColumns().clear();
         tabelaFuncionario.getColumns().add(colCrm);
         tabelaFuncionario.getColumns().add(colCpf);
         tabelaFuncionario.getColumns().add(colNome);
@@ -57,6 +60,8 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        nomeUsu.setText("Olá, Dr(a). " + Telas.user.getNome());
     }
 
     public void updateTable(List<Funcionario> list)
@@ -183,25 +188,32 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
 
     public void confirmDeletar()
     {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alerta de confirmação de deleção");
-        alert.setContentText("Tem certeza que deseja deletar Dr(a)." +
-                tabelaFuncionario.getSelectionModel().getSelectedItem().getNome() + "?");
+        if (Telas.user.getGerente()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de deleção");
+            alert.setContentText("Tem certeza que deseja deletar Dr(a)." +
+                    tabelaFuncionario.getSelectionModel().getSelectedItem().getNome() + "?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK)
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+            {
+                deletaLinha();
+            }
+        }
+        else
         {
-            deletaLinha();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alerta de Autoridade");
+            alert.setContentText("Você não possui as permissões necessárias para executar essa ação");
+            alert.showAndWait();
         }
     }
 
     public void deletaDel(KeyEvent keyEvent)
     {
-        if (keyEvent.getCode().equals(KeyCode.DELETE))
+        if (keyEvent.getCode().equals(KeyCode.DELETE) && tabelaFuncionario.getSelectionModel().getSelectedItem() != null)
         {
             confirmDeletar();
-
-            msgDel.setVisible(true);
         }
     }
 
@@ -210,14 +222,12 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
         if (tabelaFuncionario.getSelectionModel().getSelectedItem() != null)
         {
             confirmDeletar();
-
-            msgDel.setVisible(true);
         }
     }
 
     public void editar(MouseEvent mouseEvent)
     {
-        if (tabelaFuncionario.getSelectionModel().getSelectedItem() != null)
+        if (tabelaFuncionario.getSelectionModel().getSelectedItem() != null && Telas.user.getGerente())
         {
             try {
                 Funcionario func = tabelaFuncionario.getSelectionModel().getSelectedItem();
@@ -226,15 +236,58 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
                 e.printStackTrace();
             }
         }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alerta de Autoridade");
+            alert.setContentText("Você não possui as permissões necessárias para executar essa ação");
+            alert.showAndWait();
+        }
     }
 
     public void adicionar(MouseEvent mouseEvent)
     {
+        if (Telas.user.getGerente())
+        {
+            try
+            {
+                Telas.telaCriarMedicos();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alerta de Autoridade");
+            alert.setContentText("Você não possui as permissões necessárias para executar essa ação");
+            alert.showAndWait();
+        }
+    }
+
+    @Override
+    public void sair(MouseEvent mouseEvent)
+    {
         try
         {
-            Telas.telaCriarMedicos();
+            Telas.telaLogin();
         }
-        catch(IOException e)
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void retornar(MouseEvent mouseEvent)
+    {
+        try
+        {
+            Telas.telaPrincipal(Telas.user);
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -245,6 +298,7 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
     @FXML private Button botaoPacientes;
     @FXML private Button botaoProntuarios;
     @FXML private Button botaoAgenda;
+    @FXML private Button botaoLog;
 
     @Override
     public void mudarCorMed(MouseEvent mouseEvent) {}
@@ -287,5 +341,24 @@ public class TelaMedicos extends BotaoDeTrocaImpl implements Tabelas<Funcionario
     public void voltarCorAg(MouseEvent mouseEvent)
     {
         botaoAgenda.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
+    }
+
+
+    @Override
+    public void mudarCorLg(MouseEvent mouseEvent)
+    {
+        if (Telas.user.getGerente())
+        {
+            botaoLog.setStyle("-fx-background-color: #00CED1;");
+        }
+        else
+        {
+            botaoLog.setStyle("-fx-background-color: #fc1303; -fx-border-color: #2F4F4F;");
+        }
+    }
+    @Override
+    public void voltarCorLg(MouseEvent mouseEvent)
+    {
+        botaoLog.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
     }
 }

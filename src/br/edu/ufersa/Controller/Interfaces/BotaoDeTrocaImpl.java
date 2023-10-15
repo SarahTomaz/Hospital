@@ -2,6 +2,7 @@ package br.edu.ufersa.controller.Interfaces;
 
 import br.edu.ufersa.view.Telas;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -56,6 +57,28 @@ public abstract class BotaoDeTrocaImpl implements BotaoDeTroca
         }
     }
 
+    public void irTelaLog(ActionEvent actionEvent)
+    {
+        if (Telas.user.getGerente())
+        {
+            try
+            {
+                Telas.telaLog();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alerta de Autoridade");
+            alert.setContentText("Você não possui as permissões necessárias para executar essa ação");
+            alert.showAndWait();
+        }
+    }
+
 //______________________________________________________________________________________________________________________
 
     @Override
@@ -84,4 +107,9 @@ public abstract class BotaoDeTrocaImpl implements BotaoDeTroca
 
     @Override
     public abstract void voltarCorAg(MouseEvent mouseEvent);
+
+
+    public abstract void mudarCorLg(MouseEvent mouseEvent);
+
+    public abstract void voltarCorLg(MouseEvent mouseEvent);
 }

@@ -9,53 +9,53 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.Medicos.TelaAlterarMedicos">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.Medicos.TelaAlterarMedicos">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="143.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="214.0" fitWidth="214.0" layoutX="14.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/imgUsu.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nome" layoutX="143.0" layoutY="97.0" prefHeight="25.0" prefWidth="232.0" promptText="Nome do Médico" text="Nome">
+      <TextField fx:id="nome" layoutX="255.0" layoutY="123.0" prefHeight="25.0" prefWidth="232.0" promptText="Nome do Médico" text="Nome">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="143.0" layoutY="74.0" text="Nome do(a) Médico(a)" />
-      <TextField fx:id="cpf" layoutX="385.0" layoutY="97.0" prefHeight="25.0" prefWidth="187.0" promptText="Cpf do(a) Medico(a)" text="Cpf">
+      <Label layoutX="255.0" layoutY="100.0" text="Nome do(a) Médico(a)" />
+      <TextField fx:id="cpf" layoutX="494.0" layoutY="123.0" prefHeight="25.0" prefWidth="187.0" promptText="Cpf do(a) Medico(a)" text="Cpf">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="385.0" layoutY="74.0" text="Cpf do(a) Medico(a)" />
-      <TextField fx:id="endereco" layoutX="143.0" layoutY="158.0" prefHeight="25.0" prefWidth="426.0" promptText="Endereço do(a) Medico(a)" text="Endereco">
+      <Label layoutX="494.0" layoutY="100.0" text="Cpf do(a) Medico(a)" />
+      <TextField fx:id="endereco" layoutX="255.0" layoutY="184.0" prefHeight="25.0" prefWidth="426.0" promptText="Endereço do(a) Medico(a)" text="Endereco">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="143.0" layoutY="135.0" text="Endereço do(a) Medico(a)" />
-      <TextField fx:id="crm" editable="false" layoutX="143.0" layoutY="216.0" prefHeight="25.0" prefWidth="190.0" promptText="Crm do(a) Medico(a)" text="Crm">
+      <Label layoutX="255.0" layoutY="161.0" text="Endereço do(a) Medico(a)" />
+      <TextField fx:id="crm" editable="false" layoutX="255.0" layoutY="242.0" prefHeight="25.0" prefWidth="190.0" promptText="Crm do(a) Medico(a)" text="Crm">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="143.0" layoutY="193.0" text="Crm do(a) Medico(a)" />
-      <TextField fx:id="salario" layoutX="343.0" layoutY="216.0" prefHeight="25.0" prefWidth="226.0" promptText="Salario do(a) Medico(a)" text="Salário">
+      <Label layoutX="255.0" layoutY="219.0" text="Crm do(a) Medico(a)" />
+      <TextField fx:id="salario" layoutX="452.0" layoutY="242.0" prefHeight="25.0" prefWidth="226.0" promptText="Salario do(a) Medico(a)" text="Salário">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="343.0" layoutY="193.0" text="Salário do(a) Medico(a)" />
-      <TextField fx:id="senha" layoutX="143.0" layoutY="274.0" promptText="Senha do(a) Medico(a)" text="Senha">
+      <Label layoutX="452.0" layoutY="219.0" text="Salário do(a) Medico(a)" />
+      <TextField fx:id="senha" layoutX="255.0" layoutY="300.0" promptText="Senha do(a) Medico(a)" text="Senha">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Label layoutX="143.0" layoutY="251.0" text="Senha do(a) Medico(a)" />
-      <CheckBox fx:id="gerente" layoutX="320.0" layoutY="278.0" mnemonicParsing="false" text="Gerente">
+      <Label layoutX="255.0" layoutY="277.0" text="Senha do(a) Medico(a)" />
+      <CheckBox fx:id="gerente" layoutX="429.0" layoutY="303.0" mnemonicParsing="false" text="Gerente">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></CheckBox>
-      <Label fx:id="erroaut" layoutX="217.0" layoutY="328.0" text="Nenhum campo pode ser vazio" textFill="RED" visible="false" />
-      <Button fx:id="cancelarAlt" layoutX="319.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancelar" onMouseEntered="#mudarCorCan" onMouseExited="#voltarCorCan" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Cancelar Alterações">
+      <Label fx:id="erroaut" layoutX="233.0" layoutY="393.0" prefHeight="17.0" prefWidth="263.0" text="Nenhum campo pode ser vazio" textFill="RED" visible="false" />
+      <Button fx:id="cancelarAlt" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#cancelar" onMouseEntered="#mudarCorCan" onMouseExited="#voltarCorCan" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Cancelar Alterações">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="realizarAlt" layoutX="165.0" layoutY="361.0" mnemonicParsing="false" onAction="#autenticar" onMouseEntered="#mudarCorAlt" onMouseExited="#voltarCorAlt" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Realizar Alterações">
+      <Button fx:id="realizarAlt" layoutX="236.0" layoutY="434.0" mnemonicParsing="false" onAction="#autenticar" onMouseEntered="#mudarCorAlt" onMouseExited="#voltarCorAlt" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Realizar Alterações">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

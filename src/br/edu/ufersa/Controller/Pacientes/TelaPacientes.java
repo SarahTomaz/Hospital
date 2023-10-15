@@ -25,6 +25,8 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
     @FXML private TableColumn colEnd  = new TableColumn<Paciente, String>("Endereço");
     @FXML private TableColumn colIda = new TableColumn<Paciente, Integer>("Idade");
 
+    @FXML private Label nomeUsu = new Label();
+
     @Override
     public void initialize()
     {
@@ -35,6 +37,7 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
         colEnd.setCellValueFactory(new PropertyValueFactory<Paciente, String>("endereco"));
         colIda.setCellValueFactory(new PropertyValueFactory<Paciente, String>("idade"));
 
+        tabelaPaciente.getColumns().clear();
         tabelaPaciente.getColumns().add(colCpf);
         tabelaPaciente.getColumns().add(colNome);
         tabelaPaciente.getColumns().add(colEnd);
@@ -54,6 +57,8 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
         {
             e.printStackTrace();
         }
+
+        nomeUsu.setText("Olá, Dr(a). " + Telas.user.getNome());
     }
 
     @Override
@@ -191,7 +196,7 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
     @Override
     public void deletaDel(KeyEvent keyEvent)
     {
-        if (keyEvent.getCode().equals(KeyCode.DELETE))
+        if (keyEvent.getCode().equals(KeyCode.DELETE) && tabelaPaciente.getSelectionModel().getSelectedItem() != null)
         {
             confirmDeletar();
         }
@@ -200,12 +205,16 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
     @Override
     public void deletaBotao(MouseEvent mouseEvent)
     {
-        confirmDeletar();
+        if (tabelaPaciente.getSelectionModel().getSelectedItem() != null)
+        {
+            confirmDeletar();
+        }
     }
 
     @Override
     public void editar(MouseEvent mouseEvent)
     {
+        if (tabelaPaciente.getSelectionModel().getSelectedItem() != null)
         try {
             Paciente pac = tabelaPaciente.getSelectionModel().getSelectedItem();
             Telas.telaAlterarPacientes(pac);
@@ -228,6 +237,30 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
             e.printStackTrace();
         }
     }
+
+    public void sair(MouseEvent mouseEvent)
+    {
+        try
+        {
+            Telas.telaLogin();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void retornar(MouseEvent mouseEvent)
+    {
+        try
+        {
+            Telas.telaPrincipal(Telas.user);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 //_________________________________________________________________________________________________________________
     //Escolhas Estilísticas
 
@@ -235,6 +268,7 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
     @FXML private Button botaoPacientes;
     @FXML private Button botaoProntuarios;
     @FXML private Button botaoAgenda;
+    @FXML private Button botaoLog;
 
     @Override
     public void mudarCorMed(MouseEvent mouseEvent)
@@ -277,5 +311,24 @@ public class TelaPacientes extends BotaoDeTrocaImpl implements Tabelas<Paciente>
     public void voltarCorAg(MouseEvent mouseEvent)
     {
         botaoAgenda.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
+    }
+
+
+    @Override
+    public void mudarCorLg(MouseEvent mouseEvent)
+    {
+        if (Telas.user.getGerente())
+        {
+            botaoLog.setStyle("-fx-background-color: #00CED1;");
+        }
+        else
+        {
+            botaoLog.setStyle("-fx-background-color: #fc1303; -fx-border-color: #2F4F4F;");
+        }
+    }
+    @Override
+    public void voltarCorLg(MouseEvent mouseEvent)
+    {
+        botaoLog.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
     }
 }

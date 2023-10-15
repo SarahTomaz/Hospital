@@ -3,15 +3,11 @@ package br.edu.ufersa.model.Bo;
 import br.edu.ufersa.DAO.ConsultaDao;
 import br.edu.ufersa.DAO.FuncionarioDao;
 import br.edu.ufersa.DAO.PacienteDao;
-import br.edu.ufersa.DAO.ProntuarioDao;
 import br.edu.ufersa.exception.CampoVazioException;
-import br.edu.ufersa.exception.SemNomeException;
 import br.edu.ufersa.model.entity.Consulta;
 import br.edu.ufersa.model.entity.Funcionario;
 import br.edu.ufersa.model.entity.Paciente;
-import br.edu.ufersa.model.entity.Prontuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultasBo
@@ -20,14 +16,14 @@ public class ConsultasBo
     {
         FuncionarioBo funcBo = new FuncionarioBo();
         Funcionario func = new Funcionario();
-        func.setNome(cons.getMedico());
+        func.setCrm(cons.getMedico());
 
         PacienteBo pacBo = new PacienteBo();
         Paciente pac = new Paciente();
-        pac.setNome(cons.getPaciente());
+        pac.setCpf(cons.getPaciente());
 
-        List<Funcionario> funcList = funcBo.buscarPorNome(func);
-        List<Paciente> pacList = pacBo.buscarPorNome(pac);
+        List<Funcionario> funcList = funcBo.buscarPorCrm(func);
+        List<Paciente> pacList = pacBo.buscarPorCpf(pac);
 
         return (!funcList.isEmpty() && !pacList.isEmpty());
     }
@@ -104,9 +100,16 @@ public class ConsultasBo
         }
     }
 
+    public List<Consulta> buscarPorId(Consulta cons)
+    {
+        ConsultaDao conDao = new ConsultaDao();
+
+        return conDao.buscarPorIdC(cons);
+    }
+
     public List<Consulta> buscarPorNomeM(Consulta cons)
     {
-        if (cons.getMedico() != null && !cons.getPaciente().isEmpty())
+        if (cons.getMedico() != null && !cons.getMedico().isEmpty())
         {
             ConsultaDao consDao = new ConsultaDao();
 
@@ -134,7 +137,7 @@ public class ConsultasBo
 
     public List<Consulta> buscarPorData(Consulta cons)
     {
-        if (cons.getData() != null)
+        if (cons.getData_consulta() != null)
         {
             ConsultaDao  consDao = new ConsultaDao();
 

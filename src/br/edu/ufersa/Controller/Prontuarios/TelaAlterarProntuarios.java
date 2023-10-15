@@ -1,31 +1,39 @@
 package br.edu.ufersa.controller.Prontuarios;
 
 import br.edu.ufersa.exception.CampoVazioException;
+import br.edu.ufersa.model.Bo.PacienteBo;
 import br.edu.ufersa.model.Bo.ProntuarioBo;
+import br.edu.ufersa.model.entity.Paciente;
 import br.edu.ufersa.model.entity.Prontuario;
 import br.edu.ufersa.view.Telas;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class TelaAlterarProntuarios
 {
     @FXML private ChoiceBox<String> cpf;
-    @FXML private TextField data;
+    @FXML private DatePicker data;
     @FXML private TextArea observacoes;
     @FXML private Label erroaut = new Label();
+    @FXML private Label nomePaciente = new Label();
     private Long id = null;
+    private Date d = null;
 
     public void initialize(Prontuario pro)
     {
         try
         {
             this.id = pro.getId();
-            data.setText(String.valueOf(pro.getData()));
+            d = pro.getData();
+            data.setValue(pro.getData().toLocalDate());
             observacoes.setText(pro.getObservacoes());
             cpf.setValue(pro.getP_Cpf());
 
@@ -34,6 +42,18 @@ public class TelaAlterarProntuarios
 
             cpf.getItems().add(proList.get(0).getP_Cpf());
             proList.remove(0);
+
+            cpf.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+                {
+                    PacienteBo pacBo = new PacienteBo();
+                    Paciente pac = new Paciente();
+                    pac.setCpf(t1);
+                    List<Paciente> pacList = pacBo.buscarPorCpf(pac);
+                    nomePaciente.setText(pacList.get(0).getNome());
+                }
+            });
         }
         catch (Exception e)
         {
@@ -49,12 +69,21 @@ public class TelaAlterarProntuarios
         try {
             pro.setId(id);
             pro.setP_Cpf(cpf.getValue());
-            pro.setData(Date.valueOf(data.getText()));
+            pro.setData(Date.valueOf(data.getValue()));
             pro.setObservacoes(observacoes.getText());
 
-            proBo.alterar(pro);
+            if (pro.getData().compareTo(Date.valueOf(LocalDate.now())) <= 0 ||
+                    pro.getData().compareTo(d) == 0)
+            {
+                proBo.alterar(pro);
 
-            Telas.telaProntuarios();
+                Telas.telaProntuarios();
+            }
+            else
+            {
+                erroaut.setText("Um prontuário não pode ter sua data alterada para o futuro");
+                erroaut.setVisible(true);
+            }
         }
         catch (CampoVazioException e)
         {

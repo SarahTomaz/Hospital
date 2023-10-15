@@ -9,44 +9,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.Medicos.TelaMedicos">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.Log.TelaLog">
    <children>
-      <TableView fx:id="tabelaFuncionario" layoutX="139.0" layoutY="81.0" onKeyPressed="#deletaDel" prefHeight="383.0" prefWidth="558.0">
-      </TableView>
-      <Button fx:id="botaoMedicos" layoutX="31.0" layoutY="97.0" mnemonicParsing="false" onAction="#irTelaMedicos" onMouseEntered="#mudarCorMed" onMouseExited="#voltarCorMed" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #00CED1;" text="Medicos" textAlignment="CENTER" />
+      <TableView fx:id="tabelaLog" layoutX="139.0" layoutY="81.0" onKeyPressed="#deletaDel" prefHeight="383.0" prefWidth="558.0" />
+      <Button fx:id="botaoMedicos" layoutX="31.0" layoutY="97.0" mnemonicParsing="false" onAction="#irTelaMedicos" onMouseEntered="#mudarCorMed" onMouseExited="#voltarCorMed" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Medicos" textAlignment="CENTER" />
       <Button fx:id="botaoPacientes" layoutX="31.0" layoutY="162.0" mnemonicParsing="false" onAction="#irTelaPacientes" onMouseEntered="#mudarCorPac" onMouseExited="#voltarCorPac" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Pacientes" />
       <Button fx:id="botaoProntuarios" layoutX="31.0" layoutY="227.0" mnemonicParsing="false" onAction="#irTelaProntuarios" onMouseEntered="#mudarCorPro" onMouseExited="#voltarCorPro" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Prontuários" />
       <Button fx:id="botaoAgenda" layoutX="31.0" layoutY="292.0" mnemonicParsing="false" onAction="#irTelaAgendas" onMouseEntered="#mudarCorAg" onMouseExited="#voltarCorAg" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Agenda" />
-      <ImageView fx:id="botaoEdit" fitHeight="27.0" fitWidth="40.0" layoutX="139.0" layoutY="50.0" onMouseClicked="#editar" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@image/Edit.jpg" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="botaoDelete" fitHeight="27.0" fitWidth="27.0" layoutX="172.0" layoutY="50.0" onMouseClicked="#deletaBotao" pickOnBounds="true">
-         <image>
-            <Image url="@image/Delete.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="botaoAdd" fitHeight="27.0" fitWidth="27.0" layoutX="390.0" layoutY="50.0" onMouseClicked="#adicionar" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@image/Add.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <TextField fx:id="nomeBusca" layoutX="202.0" layoutY="51.0" onKeyPressed="#buscaEnter" prefHeight="25.0" prefWidth="182.0">
+      <TextField fx:id="nomeBusca" layoutX="139.0" layoutY="51.0" onKeyPressed="#buscaEnter" prefHeight="25.0" prefWidth="160.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
-         </cursor></TextField>
+         </cursor>
+      </TextField>
       <Label fx:id="msgDel" alignment="TOP_LEFT" layoutX="423.0" layoutY="43.0" prefHeight="41.0" prefWidth="146.0" text="Mensagem Delete" textFill="RED" visible="false" wrapText="true" />
-      <Button fx:id="botaoLog" layoutX="31.0" layoutY="357.0" mnemonicParsing="false" onAction="#irTelaLog" onMouseEntered="#mudarCorLg" onMouseExited="#voltarCorLg" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;" text="Log" />
+      <Button fx:id="botaoLog" layoutX="31.0" layoutY="357.0" mnemonicParsing="false" onAction="#irTelaLog" onMouseEntered="#mudarCorLg" onMouseExited="#voltarCorLg" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #00CED1;" text="Log" />
       <ImageView fx:id="sair" fitHeight="27.0" fitWidth="28.0" layoutX="519.0" layoutY="14.0" onMouseClicked="#sair" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/Sair.png" />

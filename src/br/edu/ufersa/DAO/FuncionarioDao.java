@@ -12,7 +12,6 @@ import br.edu.ufersa.model.entity.Funcionario;
 
 public class FuncionarioDao extends BaseDaoImpl<Funcionario>
 {
-
     @Override
     public Long inserir(Funcionario entity)
     {

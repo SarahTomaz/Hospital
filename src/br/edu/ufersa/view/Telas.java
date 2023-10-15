@@ -1,10 +1,13 @@
 package br.edu.ufersa.view;
 
+import br.edu.ufersa.controller.Agendas.TelaAlterarAgendas;
+import br.edu.ufersa.controller.Agendas.TelaCriarAgendas;
+import br.edu.ufersa.controller.Log.TelaLog;
 import br.edu.ufersa.controller.Medicos.TelaAlterarMedicos;
 import br.edu.ufersa.controller.Pacientes.TelaAlterarPacientes;
 import br.edu.ufersa.controller.Prontuarios.TelaAlterarProntuarios;
 import br.edu.ufersa.controller.Prontuarios.TelaCriarProntuarios;
-import br.edu.ufersa.controller.TelaInicioGerente;
+import br.edu.ufersa.controller.TelaPrincipal;
 import br.edu.ufersa.model.entity.Funcionario;
 import br.edu.ufersa.model.entity.Paciente;
 import br.edu.ufersa.model.entity.Prontuario;
@@ -20,6 +23,7 @@ import java.io.IOException;
 public class Telas extends Application
 {
     private static Stage stage;
+    public static Funcionario user = null;
 
 
     public void setStage(Stage stage)
@@ -52,14 +56,15 @@ public class Telas extends Application
         stage.setScene(login);
     }
 
-    public static void telaPrincipalGerente(Funcionario func) throws Exception
+    public static void telaPrincipal(Funcionario func) throws Exception
     {
-        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("VE/telaInicioGerente.fxml"));
+        user = func;
+
+        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("VE/telaInicio.fxml"));
         Parent root = loader.load();
 
-        //Instancia o controller para setar o nome de quem está usando a tela atual
-        TelaInicioGerente controller = loader.getController();
-        controller.setFuncionario(func);
+        TelaPrincipal controller = loader.getController();
+        controller.initialize();
 
         Scene inicioGerente = new Scene(root);
         stage.setScene(inicioGerente);
@@ -167,15 +172,15 @@ public class Telas extends Application
         stage.setScene(telaAgendas);
     }
 
-    public static void telaAlterarAgendas(Consulta cons) throws IOException
+    public static void telaAlterarAgendas(Consulta con) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(Telas.class.getResource("VE/telaAlterarAgendas.fxml"));
         Parent root = loader.load();
 
-        /*
+
         TelaAlterarAgendas controller = loader.getController();
-        controller.initialize(cons);
-        */
+        controller.initialize(con);
+
 
         Scene telaAlterarAgendas = new Scene(root);
         stage.setScene(telaAlterarAgendas);
@@ -186,7 +191,22 @@ public class Telas extends Application
         FXMLLoader loader = new FXMLLoader(Telas.class.getResource("VE/telaCriarAgendas.fxml"));
         Parent root = loader.load();
 
+        TelaCriarAgendas controller = loader.getController();
+        controller.initialize();
+
         Scene telaCriarAgendas = new Scene(root);
         stage.setScene(telaCriarAgendas);
+    }
+
+    public static void telaLog() throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("VE/telaLog.fxml"));
+        Parent root = loader.load();
+
+        TelaLog controller = loader.getController();
+        controller.initialize();
+
+        Scene telaLog = new Scene(root);
+        stage.setScene(telaLog);
     }
 }

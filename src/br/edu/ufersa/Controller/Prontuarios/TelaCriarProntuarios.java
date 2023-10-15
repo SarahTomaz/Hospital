@@ -24,7 +24,7 @@ import java.util.List;
 public class TelaCriarProntuarios
 {
     @FXML private ChoiceBox<String> cpf;
-    @FXML private TextField data;
+    @FXML private DatePicker data;
     @FXML private TextArea observacoes;
     @FXML private Label erroaut = new Label();
 
@@ -45,9 +45,7 @@ public class TelaCriarProntuarios
 
             cpf.setItems(listaCpf);
 
-            Date date = Date.valueOf(LocalDate.now());
-
-            data.setText(date.toString());
+            data.setValue(LocalDate.now());
         }
         catch (Exception e)
         {
@@ -64,7 +62,7 @@ public class TelaCriarProntuarios
             try
             {
                 pro.setP_Cpf(cpf.getValue());
-                pro.setData(Date.valueOf(data.getText()));
+                pro.setData(Date.valueOf(data.getValue()));
                 pro.setObservacoes(observacoes.getText());
 
                 proBo.criar(pro);

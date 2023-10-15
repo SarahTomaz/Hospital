@@ -29,6 +29,8 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
     @FXML private TableColumn colCpf = new TableColumn<Prontuario, String>("Cpf do Paciente");
     @FXML private TableColumn colData  = new TableColumn<Prontuario, Date>("Data");
     @FXML private TableColumn colObs = new TableColumn<Prontuario, String>("Observações");
+    @FXML private ChoiceBox<String> escolha;
+    @FXML private Label nomeUsu = new Label();
 
     @Override
     public void initialize()
@@ -40,6 +42,7 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
         colData.setCellValueFactory(new PropertyValueFactory<Prontuario, Date>("data"));
         colObs.setCellValueFactory(new PropertyValueFactory<Prontuario, String>("observacoes"));
 
+        tabelaProntuario.getColumns().clear();
         tabelaProntuario.getColumns().add(colId);
         tabelaProntuario.getColumns().add(colCpf);
         tabelaProntuario.getColumns().add(colData);
@@ -59,6 +62,11 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
         {
             e.printStackTrace();
         }
+
+        nomeUsu.setText("Olá, Dr(a). " + Telas.user.getNome());
+
+        escolha.getItems().addAll("Id", "Cpf");
+        escolha.setValue("Id");
     }
 
     @Override
@@ -103,45 +111,59 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
         Prontuario pro = new Prontuario();
         if (nomeBusca.getText() != null && !nomeBusca.getText().isEmpty())
         {
-            pro.setId(Long.parseLong(nomeBusca.getText()));
-            pro.setP_Cpf(nomeBusca.getText());
-
             ProntuarioBo proBo = new ProntuarioBo();
-            List<Prontuario> proId = null;
-            try
-            {
-                proId = proBo.buscarPorId(pro);
-            }
-            catch (CampoVazioException e)
-            {
-                System.out.println(e.getMessage());
-            }
 
-            List<Prontuario> proP_Cpf = null;
-            try
+            if (escolha.getValue().equals("Id"))
             {
-                proP_Cpf = proBo.buscarPorP_Cpf(pro);
-            }
-            catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-            }
+                pro.setId(Long.valueOf(nomeBusca.getText()));
 
-            try
-            {
-                if (!proId.isEmpty())
+                List<Prontuario> proId = null;
+                try
                 {
-                    updateTable(proId);
+                    proId = proBo.buscarPorId(pro);
                 }
-                else
+                catch (CampoVazioException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                try
+                {
+                    if (!proId.isEmpty())
+                    {
+                        updateTable(proId);
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            else if (escolha.getValue().equals("Cpf"))
+            {
+                pro.setP_Cpf(nomeBusca.getText());
+
+                List<Prontuario> proP_Cpf = null;
+                try
+                {
+                    proP_Cpf = proBo.buscarPorP_Cpf(pro);
+                }
+                catch (Exception e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                try
                 {
                     if (!proP_Cpf.isEmpty())
                     {
                         updateTable(proP_Cpf);
                     }
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
         else
@@ -185,8 +207,7 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
                 tabelaProntuario.getSelectionModel().getSelectedItem().getId() + "?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK)
-        {
+        if (result.get() == ButtonType.OK) {
             deletaLinha();
         }
     }
@@ -194,7 +215,7 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
     @Override
     public void deletaDel(KeyEvent keyEvent)
     {
-        if (keyEvent.getCode().equals(KeyCode.DELETE))
+        if (keyEvent.getCode().equals(KeyCode.DELETE) && tabelaProntuario.getSelectionModel().getSelectedItem() != null)
         {
             confirmDeletar();
         }
@@ -238,6 +259,30 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
         }
     }
 
+    public void sair(MouseEvent mouseEvent)
+    {
+        try
+        {
+            Telas.telaLogin();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void retornar(MouseEvent mouseEvent)
+    {
+        try
+        {
+            Telas.telaPrincipal(Telas.user);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 //______________________________________________________________________________________________________________________
     //Escolhas estilísticas
 
@@ -245,6 +290,7 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
     @FXML private Button botaoPacientes;
     @FXML private Button botaoProntuarios;
     @FXML private Button botaoAgenda;
+    @FXML private Button botaoLog;
 
     @Override
     public void mudarCorMed(MouseEvent mouseEvent)
@@ -285,6 +331,25 @@ public class TelaProntuarios extends BotaoDeTrocaImpl implements Tabelas<Prontua
     public void voltarCorAg(MouseEvent mouseEvent)
     {
         botaoAgenda.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
+    }
+
+
+    @Override
+    public void mudarCorLg(MouseEvent mouseEvent)
+    {
+        if (Telas.user.getGerente())
+        {
+            botaoLog.setStyle("-fx-background-color: #00CED1;");
+        }
+        else
+        {
+            botaoLog.setStyle("-fx-background-color: #fc1303; -fx-border-color: #2F4F4F;");
+        }
+    }
+    @Override
+    public void voltarCorLg(MouseEvent mouseEvent)
+    {
+        botaoLog.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #2F4F4F;");
     }
 }
 

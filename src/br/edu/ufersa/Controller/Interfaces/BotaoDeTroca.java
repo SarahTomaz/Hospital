@@ -22,4 +22,8 @@ public interface BotaoDeTroca
     void mudarCorAg(MouseEvent mouseEvent);
     void voltarCorAg(MouseEvent mouseEvent);
     void irTelaAgendas(ActionEvent event);
+
+    void mudarCorLg(MouseEvent mouseEvent);
+    void voltarCorLg(MouseEvent mouseEvent);
+    void irTelaLog(ActionEvent actionEvent);
 }

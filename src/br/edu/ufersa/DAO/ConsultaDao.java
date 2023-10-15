@@ -23,7 +23,7 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
             ps.setLong(1, entity.getId());
             ps.setString(2, entity.getMedico());
             ps.setString(3, entity.getPaciente());
-            ps.setDate(4, entity.getData());
+            ps.setDate(4, entity.getData_consulta());
             ps.execute();
             ps.close();
         }
@@ -65,7 +65,7 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
             ps.setLong(1, entity.getId());
             ps.setString(2, entity.getMedico());
             ps.setString(3, entity.getPaciente());
-            ps.setDate(4, entity.getData());
+            ps.setDate(4, entity.getData_consulta());
             ps.setLong(5, entity.getId());
             ps.execute();
             ps.close();
@@ -78,6 +78,45 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
     }
 
     public List<Consulta> buscarPorId(Consulta entity)
+    {
+        Connection con = getConnection();
+        String sql = "SELECT * FROM agenda where id = ?";
+        List<Consulta> conList = new ArrayList<>();
+
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, entity.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Consulta cs = new Consulta();
+                try
+                {
+                    cs.setId(rs.getLong("id"));
+                    cs.setMedico(rs.getString("nome_m"));
+                    cs.setPaciente(rs.getString("nome_p"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+                conList.add(cs);
+            }
+            ps.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {closeConnection();}
+        return conList;
+    }
+
+    public List<Consulta> buscarPorIdC(Consulta entity)
     {
         Connection con = getConnection();
         String sql = "SELECT * FROM consulta where id = ?";
@@ -98,7 +137,7 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
                     cs.setId(rs.getLong("id"));
                     cs.setMedico(rs.getString("medico"));
                     cs.setPaciente(rs.getString("paciente"));
-                    cs.setData(rs.getDate("data_consulta"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
                 }
                 catch(Exception e)
                 {
@@ -119,7 +158,7 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
     public List<Consulta> buscarPorNomeM(Consulta entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM consulta where medico = ?";
+        String sql = "SELECT * FROM agenda where nome_m = ?";
         List<Consulta> conList = new ArrayList<>();
 
         try
@@ -134,9 +173,9 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
                 try
                 {
                     cs.setId(rs.getLong("id"));
-                    cs.setMedico(rs.getString("medico"));
-                    cs.setPaciente(rs.getString("paciente"));
-                    cs.setData(rs.getDate("data_consulta"));
+                    cs.setMedico(rs.getString("nome_m"));
+                    cs.setPaciente(rs.getString("nome_p"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
                 }
                 catch(Exception e)
                 {
@@ -158,7 +197,7 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
     public List<Consulta> buscarPorNomeP(Consulta entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM consulta where paciente = ?";
+        String sql = "SELECT * FROM agenda where nome_p = ?";
         List<Consulta> conList = new ArrayList<>();
 
 
@@ -174,9 +213,9 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
                 try
                 {
                     cs.setId(rs.getLong("id"));
-                    cs.setMedico(rs.getString("medico"));
-                    cs.setPaciente(rs.getString("paciente"));
-                    cs.setData(rs.getDate("data_consulta"));
+                    cs.setMedico(rs.getString("nome_m"));
+                    cs.setPaciente(rs.getString("nome_p"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
                 }
                 catch(Exception e)
                 {
@@ -198,13 +237,13 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
     public List<Consulta> buscarPorData(Consulta entity)
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM consulta where data_consulta = ?";
+        String sql = "SELECT * FROM agenda where data_consulta = ?";
         List<Consulta> conList = new ArrayList<>();
 
         try
         {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(1, entity.getData());
+            ps.setDate(1, entity.getData_consulta());
             ResultSet rs = ps.executeQuery();
 
             while(rs.next())
@@ -213,9 +252,9 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
                 try
                 {
                     cs.setId(rs.getLong("id"));
-                    cs.setMedico(rs.getString("medico"));
-                    cs.setPaciente(rs.getString("paciente"));
-                    cs.setData(rs.getDate("data_consulta"));
+                    cs.setMedico(rs.getString("nome_m"));
+                    cs.setPaciente(rs.getString("nome_p"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
                 }
                 catch(Exception e)
                 {
@@ -238,8 +277,8 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
     public List<Consulta> listar()
     {
         Connection con = getConnection();
-        String sql = "SELECT * FROM consulta";
-        List<Consulta> conList = new ArrayList<Consulta>();
+        String sql = "SELECT * FROM agenda";
+        List<Consulta> conList = new ArrayList<>();
 
         try
         {
@@ -253,9 +292,9 @@ public class ConsultaDao extends BaseDaoImpl<Consulta>
                 try
                 {
                     cs.setId(rs.getLong("id"));
-                    cs.setMedico(rs.getString("medico"));
-                    cs.setPaciente(rs.getString("paciente"));
-                    cs.setData(rs.getDate("data_consulta"));
+                    cs.setMedico(rs.getString("nome_m"));
+                    cs.setPaciente(rs.getString("nome_p"));
+                    cs.setData_consulta(rs.getDate("data_consulta"));
                 }
                 catch(Exception e)
                 {

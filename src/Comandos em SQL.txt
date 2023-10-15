@@ -44,3 +44,17 @@ insert into paciente values ('1', 'IAs', 'jasvcak', 15),
 	('2', 'IBs', 'Josias', 15);
 insert into consulta values (1, '1', '1', '2001-11-09'), (3, '2', '1', '2001-11-10'),
 	(4, '2', '2', '2001-11-10'), (2, '1', '2', '2001-11-10');
+__________________________________________________________________________
+x4)
+
+CREATE FUNCTION func_log() returns trigger as $$
+begin
+	insert into log (data, hora, usuario, modificacao, tabela)
+		values (CURRENT_DATE, CURRENT_TIME, user, TG_OP, 'Funcionario');
+	return NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER func_log
+after insert or update or delete on funcionario
+for each row execute procedure func_log();

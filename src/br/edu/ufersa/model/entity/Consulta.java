@@ -9,7 +9,7 @@ public class Consulta
     Long id;
     String medico;
     String paciente;
-    Date data;
+    Date data_consulta;
 
     public void setId(Long id)
     {
@@ -23,17 +23,17 @@ public class Consulta
     public Long getId()
     {return this.id;}
 
-    public void setData(Date data)
+    public void setData_consulta(Date data_consulta)
     {
-        if (data != null)
+        if (data_consulta != null)
         {
-            this.data = data;
+            this.data_consulta = data_consulta;
         }
         else
             throw new CampoVazioException("Campo 'data' não pode ser vazio");
     }
-    public Date getData()
-    {return this.data;}
+    public Date getData_consulta()
+    {return this.data_consulta;}
 
     public void setMedico(String nomeMedico)
     {
@@ -64,6 +64,6 @@ public class Consulta
         return (this.id != null && this.id > 0 &&
                 this.medico != null && !this.medico.isEmpty() &&
                 this.paciente != null && !this.paciente.isEmpty() &&
-                this.data != null);
+                this.data_consulta != null);
     }
 }

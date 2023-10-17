@@ -11,9 +11,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.controller.TelaLogin">
    <children>
-      <ImageView fitHeight="335.0" fitWidth="506.0" layoutX="111.0" layoutY="88.0" pickOnBounds="true">
+      <ImageView fitHeight="118.0" fitWidth="150.0" layoutX="296.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@image/Fundo_branco.png" />
+            <Image url="@image/Logo.png" />
          </image>
       </ImageView>
       <ImageView fx:id="imgUsu" fitHeight="91.0" fitWidth="92.0" layoutX="310.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
@@ -30,6 +30,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="erroaut" layoutX="320.0" layoutY="229.0" text="Erro no Login" textFill="RED" visible="false" />
+      <Label fx:id="erroaut" layoutX="273.0" layoutY="229.0" prefHeight="17.0" prefWidth="180.0" text="Erro no Login" textAlignment="CENTER" textFill="RED" visible="false" />
    </children>
 </Pane>

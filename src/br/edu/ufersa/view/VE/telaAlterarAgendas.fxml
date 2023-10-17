@@ -35,5 +35,10 @@
       </Button>
       <Label fx:id="nomePaciente" alignment="TOP_LEFT" layoutX="258.0" layoutY="219.0" prefHeight="44.0" prefWidth="151.0" text="Nome do Paciente" wrapText="true" />
       <Label fx:id="nomeMedico" alignment="TOP_LEFT" layoutX="447.0" layoutY="219.0" prefHeight="44.0" prefWidth="151.0" text="Nome do Paciente" wrapText="true" />
+      <ImageView fitHeight="132.0" fitWidth="132.0" layoutX="532.0" layoutY="14.0" pickOnBounds="true">
+         <image>
+            <Image url="@image/Logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

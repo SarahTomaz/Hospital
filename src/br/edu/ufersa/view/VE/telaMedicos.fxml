@@ -55,7 +55,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label fx:id="nomeUsu" layoutX="580.0" layoutY="22.0" maxWidth="89.0" prefHeight="17.0" prefWidth="89.0" text="Dr. " />
+      <Label fx:id="nomeUsu" layoutX="580.0" layoutY="22.0" maxWidth="109.0" prefHeight="17.0" prefWidth="109.0" text="Dr. " />
       <ImageView fx:id="voltar" fitHeight="27.0" fitWidth="28.0" layoutX="553.0" layoutY="14.0" onMouseClicked="#retornar" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/imgUsu.png" />
@@ -63,6 +63,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </ImageView>
+      <ImageView fitHeight="71.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/Logo.png" />
+         </image>
       </ImageView>
    </children>
 </Pane>

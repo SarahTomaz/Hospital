@@ -64,5 +64,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <ImageView fitHeight="71.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/Logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

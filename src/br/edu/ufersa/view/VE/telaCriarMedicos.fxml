@@ -68,5 +68,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fitHeight="132.0" fitWidth="132.0" layoutX="547.0" layoutY="294.0" pickOnBounds="true">
+         <image>
+            <Image url="@image/Logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

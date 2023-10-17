@@ -35,5 +35,10 @@
       <Label fx:id="nomePaciente" alignment="TOP_LEFT" layoutX="255.0" layoutY="151.0" prefHeight="44.0" prefWidth="151.0" text="Nome do Paciente" />
       <DatePicker fx:id="data" layoutX="420.0" layoutY="117.0" />
       <Label fx:id="erroaut" alignment="TOP_CENTER" layoutX="233.0" layoutY="393.0" prefHeight="17.0" prefWidth="263.0" text="Nenhum campo pode ser vazio" textAlignment="CENTER" textFill="RED" textOverrun="CENTER_ELLIPSIS" visible="false" wrapText="true" />
+      <ImageView fitHeight="113.0" fitWidth="117.0" layoutX="596.0" pickOnBounds="true">
+         <image>
+            <Image url="@image/Logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

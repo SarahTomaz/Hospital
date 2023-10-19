@@ -1,4 +1,3 @@
-# Branch para BD
-Tabelas implementadas, banco de dados e telas funcionando.
+# Hospital
 
-falta apenas estilizar as telas e arrumar o txt dos comando sql.
+Sistema hospitalar para aula de POO 
